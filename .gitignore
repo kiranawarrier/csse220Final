@@ -1,1 +1,10 @@
 /.metadata/
+# Java / Eclipse
+bin/
+target/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
