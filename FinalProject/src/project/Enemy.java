@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 public class Enemy{
  int x,y;
+ 
  Color color = Color.RED;
  private int dx = 1;
  private int dy = 2;
@@ -11,7 +12,7 @@ public class Enemy{
  }
  
  public void Move(int width, int height) {
-	 // add random movements using dy and dx 
+	 // add random movements using dx 
 	 
  }
  public void draw(Graphics2D g2) {
