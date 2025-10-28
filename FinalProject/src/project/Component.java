@@ -13,6 +13,8 @@ public class Component extends JComponent{
 	public static final Color BG = new Color(18, 29, 57);
 	public static final Color FG = new Color(8, 128, 38);
 	Player player = new Player(200,630);
+	Enemy enemy = new Enemy(1000,700);
+	
 	public Component() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	}
@@ -26,7 +28,7 @@ public class Component extends JComponent{
 		g.setColor(FG);
 		g.fillRect(0, 700, WIDTH, HEIGHT);
 		player.paintPlayer(g2);
-		
+		enemy.drawEnemy(g2);
 	}
 
 	public void playerJump() {
