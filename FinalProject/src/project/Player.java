@@ -1,5 +1,5 @@
 package project;
 
-public class Player {
+public class Player extends Entity {
 	
 }

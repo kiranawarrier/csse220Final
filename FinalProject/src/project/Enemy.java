@@ -1,7 +1,7 @@
 package project;
 import java.awt.Color;
 import java.awt.Graphics2D;
-public class Enemy {
+public class Enemy extends Entity {
  int x,y;
  Color color = Color.RED;
  
