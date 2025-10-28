@@ -16,6 +16,7 @@ public class Enemy{
 	 
 	public void move() {
 		x += dx;
+		//test
 	}
 	public void drawEnemy(Graphics2D g2) {
 	    g2.setColor(color);
