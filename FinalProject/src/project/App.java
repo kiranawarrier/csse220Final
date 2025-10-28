@@ -3,7 +3,7 @@ package project;
 import javax.swing.*;
 
 public class App {
-    private final JFrame frame = new JFrame("Moving Object — Key Listener");
+    private final JFrame frame = new JFrame("Final Project App");
     private Panel panel = new Panel();
     
     public App() {
