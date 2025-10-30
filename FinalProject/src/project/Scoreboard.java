@@ -10,15 +10,12 @@ public class Scoreboard {
 	}
 	
 	public Scoreboard() {
-		
 	}
 	
 	public void updateScore() {
-		
 	}
 	
 	public void display() {
-		
 	}
 	
 	
