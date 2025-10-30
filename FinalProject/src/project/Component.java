@@ -32,10 +32,21 @@ public class Component extends JComponent{
 	}
 
 	public void playerJump() {
-		
+		player.jump();
 	}
 
 	public void movePlayer() {
-		
+		player.left();
+		player.right();
 	}
+
+	public void playerLeft() {
+		// TODO Auto-generated method stub
+		player.left();
+	}
+	public void playerRight() {
+		// TODO Auto-generated method stub
+		player.right();
+	}
+	
 }
