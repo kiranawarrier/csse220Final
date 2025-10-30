@@ -20,8 +20,10 @@ public class Component extends JComponent{
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
     Collectable item1 = new Collectable(240,240);
-	
-	public Component() {
+    Scoreboard score = new Scoreboard();
+
+
+    public Component() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 			
 	}
@@ -39,6 +41,7 @@ public class Component extends JComponent{
 		plat1.drawPlatform(g2);
 		plat2.drawPlatform(g2);
         item1.drawCollectable(g2);
+        score.displayScore(g2);
 	}
 	public void playerJump() {
 		player.jump();
@@ -63,6 +66,7 @@ public class Component extends JComponent{
 	
 	public void playerGravity() {
 		player.gravity();
+		repaint();
 	}
 	
 	public void start() { timer.start(); }     // NEW
