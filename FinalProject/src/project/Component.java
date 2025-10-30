@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
+import javax.swing.Timer;
 
 public class Component extends JComponent{
 	public static final int WIDTH = 1920;
@@ -14,9 +15,13 @@ public class Component extends JComponent{
 	public static final Color FG = new Color(8, 128, 38);
 	Player player = new Player(200,630);
 	Enemy enemy = new Enemy(1000,630);
-	
+	Timer timer;
 	public Component() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		 timer = new Timer(30, e-> {
+	        	player.update(WIDTH,HEIGHT);
+	        	repaint();
+	        });
 	}
 	
 	@Override
@@ -33,20 +38,26 @@ public class Component extends JComponent{
 
 	public void playerJump() {
 		player.jump();
+		repaint();
 	}
 
 	public void movePlayer() {
 		player.left();
 		player.right();
+		repaint();
 	}
 
 	public void playerLeft() {
 		// TODO Auto-generated method stub
 		player.left();
+		repaint();
 	}
 	public void playerRight() {
 		// TODO Auto-generated method stub
 		player.right();
+		repaint();
 	}
+	public void start() { timer.start(); }     // NEW
+    public void stop()  { timer.stop(); }      // NEW
 	
 }

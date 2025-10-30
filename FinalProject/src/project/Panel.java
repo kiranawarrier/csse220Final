@@ -15,7 +15,7 @@ public class Panel extends JPanel{
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT  -> canvas.playerLeft();
+                    case KeyEvent.VK_LEFT  -> canvas.playerLeft(); 
                     case KeyEvent.VK_RIGHT -> canvas.playerRight();
                     case KeyEvent.VK_UP -> canvas.playerJump();
                 }
