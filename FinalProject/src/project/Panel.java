@@ -17,7 +17,7 @@ public class Panel extends JPanel{
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_LEFT  -> canvas.movePlayer();
                     case KeyEvent.VK_RIGHT -> canvas.movePlayer();
-                    case KeyEvent.VK_SPACE -> canvas.playerJump();
+                    case KeyEvent.VK_UP -> canvas.playerJump();
                 }
                 canvas.repaint();
             }

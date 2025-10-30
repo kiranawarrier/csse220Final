@@ -9,13 +9,12 @@ public class Player {
 	private int width = 35;
 	private int height = 70;
 	
-	 public Player(int x, int y) {
-	        this.x = x; this.y = y;
-	    }
+	public Player(int x, int y) {
+        this.x = x; this.y = y;
+    }
 
 	protected void paintPlayer(Graphics2D g) {
-	g.setColor(color);
-	g.fillRect(x, y, width, height);
-	
-}
+		g.setColor(color);
+		g.fillRect(x, y, width, height);
+	}
 }

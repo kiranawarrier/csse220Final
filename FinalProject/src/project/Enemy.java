@@ -1,11 +1,12 @@
 package project;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
+
 public class Enemy{
 	private int x,y;
 	private static final int WIDTH = 70;
 	private static final int HEIGHT = 70;
-	
 	
 	Color color = Color.RED;
 	private int dx = 4;
