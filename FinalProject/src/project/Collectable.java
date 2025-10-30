@@ -9,7 +9,7 @@ public class Collectable {
     private static int WIDTH = 20;
     private static int HEIGHT = 20;
 
-    Color color = Color.BLACK;
+    Color color = Color.YELLOW;
 
     public Collectable(int x, int y) {
         this.x = x;
