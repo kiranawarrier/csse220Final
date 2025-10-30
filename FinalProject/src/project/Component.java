@@ -66,6 +66,7 @@ public class Component extends JComponent{
 	
 	public void playerGravity() {
 		player.gravity();
+		repaint();
 	}
 	
 	public void start() { timer.start(); }     // NEW
