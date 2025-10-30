@@ -23,7 +23,7 @@ public class Panel extends JPanel{
                 
             }
         });
-		
+		canvas.playerGravity();
 	}
 	
 }
