@@ -20,5 +20,7 @@ public class Collectable {
         g2.setColor(color);
         g2.fillRect(y, x, WIDTH, HEIGHT);
     }
+    public void pickup() {
 
+    }
 }
