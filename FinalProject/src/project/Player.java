@@ -22,7 +22,6 @@ public class Player {
 	
 	public void right() {
 		x += dx;
-	
 	}
 	
 	public void jump() {

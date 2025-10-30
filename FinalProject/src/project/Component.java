@@ -70,3 +70,4 @@ public class Component extends JComponent{
     public void stop()  { timer.stop(); }      // NEW
 	
 }
+
