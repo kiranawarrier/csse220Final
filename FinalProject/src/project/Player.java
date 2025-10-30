@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 public class Player {
 	int x,y;
 	int dx = 5;
-	int dy = 1;
+	int gravity = 1;
 	Color color = Color.GREEN;
 	private int width = 35;
 	private int height = 70;
@@ -32,6 +32,6 @@ public class Player {
 	
 	}
 	public void jump() {
-		y -= dy; // need to fix
+		y -= gravity; // need to fix
 	}
 }
