@@ -20,7 +20,7 @@ public class Scoreboard {
     }
 
     public void displayScore(Graphics2D g2) {
-        g2.setFont(new Font(Font.Ariel, Font.BOLD, 12));
+        g2.setFont(new Font(Font."Arial", Font.BOLD, 12));
         g2.setColor(Color.WHITE);
         g2.drawString("Score: " + score, 10, 20);
         g2.drawString("Lives Left: " + livesLeft, 10, 40);
