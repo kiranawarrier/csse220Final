@@ -18,6 +18,7 @@ public class Enemy{
 	public void move() {
 		x += dx;
 	}
+	
 	public void drawEnemy(Graphics2D g2) {
 	    g2.setColor(color);
 	    g2.fillRect(x, y, WIDTH, HEIGHT);

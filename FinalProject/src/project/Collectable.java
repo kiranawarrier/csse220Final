@@ -9,7 +9,7 @@ public class Collectable {
     private static int WIDTH = 20;
     private static int HEIGHT = 20;
 
-    Color color = Color.ORANGE;
+    Color color = Color.YELLOW;
 
     public Collectable(int x, int y) {
         this.x = x;
@@ -20,5 +20,7 @@ public class Collectable {
         g2.setColor(color);
         g2.fillRect(y, x, WIDTH, HEIGHT);
     }
+    public void pickup() {
 
+    }
 }

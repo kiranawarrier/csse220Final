@@ -10,16 +10,17 @@ public class Panel extends JPanel{
 	
 	public Panel() {
 		this.add(canvas);
-		
+		this.setFocusable(true);
+		this.requestFocusInWindow();
 		this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_LEFT  -> canvas.movePlayer();
-                    case KeyEvent.VK_RIGHT -> canvas.movePlayer();
+                    case KeyEvent.VK_LEFT  -> canvas.playerLeft(); 
+                    case KeyEvent.VK_RIGHT -> canvas.playerRight();
                     case KeyEvent.VK_UP -> canvas.playerJump();
                 }
-                canvas.repaint();
+                
             }
         });
 	}
