@@ -40,7 +40,6 @@ public class Component extends JComponent{
 		plat2.drawPlatform(g2);
         item1.drawCollectable(g2);
 	}
-
 	public void playerJump() {
 		player.jump();
 		repaint();
