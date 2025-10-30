@@ -46,22 +46,26 @@ public class Component extends JComponent{
 		repaint();
 	}
 
-	public void movePlayer() {
-		player.left();
-		player.right();
-		repaint();
-	}
+	//public void movePlayer() {
+		//player.left();
+		//player.right();
+		//repaint();
+	//}
 
 	public void playerLeft() {
-		// TODO Auto-generated method stub
 		player.left();
 		repaint();
 	}
+	
 	public void playerRight() {
-		// TODO Auto-generated method stub
 		player.right();
 		repaint();
 	}
+	
+	public void playerGravity() {
+		player.gravity();
+	}
+	
 	public void start() { timer.start(); }     // NEW
     public void stop()  { timer.stop(); }      // NEW
 	
