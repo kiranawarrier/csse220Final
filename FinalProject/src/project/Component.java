@@ -16,6 +16,7 @@ public class Component extends JComponent{
 	Enemy enemy = new Enemy(1000,630);
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
+    Collectable item1 = new Collectable(240,240);
 	
 	public Component() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -33,6 +34,7 @@ public class Component extends JComponent{
 		enemy.drawEnemy(g2);
 		plat1.drawPlatform(g2);
 		plat2.drawPlatform(g2);
+        item1.drawCollectable(g2);
 	}
 
 	public void playerJump() {
