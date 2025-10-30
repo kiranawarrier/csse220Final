@@ -24,12 +24,12 @@ public class Player {
 	}
 	public void left() {
 		x -= dx;
-		System.out.println("move left");
+		
 		
 	}
 	public void right() {
 		x += dx;
-		System.out.println("move right");
+	
 	}
 	public void jump() {
 		y -= dy; // need to fix

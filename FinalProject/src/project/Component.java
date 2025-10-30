@@ -18,10 +18,7 @@ public class Component extends JComponent{
 	Timer timer;
 	public Component() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		 timer = new Timer(30, e-> {
-	        	player.update(WIDTH,HEIGHT);
-	        	repaint();
-	        });
+			
 	}
 	
 	@Override

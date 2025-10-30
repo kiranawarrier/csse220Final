@@ -10,7 +10,8 @@ public class Panel extends JPanel{
 	
 	public Panel() {
 		this.add(canvas);
-		
+		this.setFocusable(true);
+		this.requestFocusInWindow();
 		this.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
