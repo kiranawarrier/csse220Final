@@ -15,7 +15,7 @@ public class Component extends JComponent{
 	public static final Color BG = new Color(18, 29, 57);
 	public static final Color FG = new Color(8, 128, 38);
 	public static final int GROUND_Y = 700;
-	Player player = new Player(200,630);
+	Player player = new Player(200,500);
 	Enemy enemy = new Enemy(1000,592);
 
 	Timer timer;
@@ -41,8 +41,8 @@ public class Component extends JComponent{
 		    }
 		    player.gravity();
 		    player.updateY();
-		    if (player.y + 70 >= GROUND_Y) {
-		        player.y = GROUND_Y - 70;
+		    if (player.y + 120 >= GROUND_Y) {
+		        player.y = GROUND_Y - 120;
 		        player.dy = 0;
 		    }
 
