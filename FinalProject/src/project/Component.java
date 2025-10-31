@@ -8,11 +8,13 @@ import java.awt.Graphics2D;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
+@SuppressWarnings("serial")
 public class Component extends JComponent{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
 	public static final Color BG = new Color(18, 29, 57);
 	public static final Color FG = new Color(8, 128, 38);
+	public static final int GROUND_Y = 700;
 	Player player = new Player(200,630);
 	Enemy enemy = new Enemy(1000,592);
 
@@ -21,11 +23,32 @@ public class Component extends JComponent{
 	Platform plat2 = new Platform(650, 550);
     Collectable item1 = new Collectable(240,240);
     Scoreboard score = new Scoreboard();
+    Panel panel;
 
-
-    public Component() {
+    public Component(Panel panel) {
+    	 this.panel = panel;
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-			
+		timer = new Timer(16, e -> {
+		    if (panel.leftPressed)  player.left();
+		    if (panel.rightPressed) player.right();
+		    
+		    int w = 1560;
+		    if (player.x > w) {
+		        player.x = -35;
+		    }
+		    if (player.x + 35 < 0) {
+		        player.x = w;
+		    }
+		    player.gravity();
+		    player.updateY();
+		    if (player.y + 70 >= GROUND_Y) {
+		        player.y = GROUND_Y - 70;
+		        player.dy = 0;
+		    }
+
+		    repaint();
+		});
+	    timer.start();
 	}
 	
 	@Override
