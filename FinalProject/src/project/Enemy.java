@@ -24,6 +24,7 @@ public class Enemy{
 			spriteLoaded = (sprite != null);
 		} catch (IOException | IllegalArgumentException ex) {
 			spriteLoaded = false; // fallback to oval
+			System.out.println(Enemy.class.getResource("enemyV2.png"));
 			System.out.println("sprite failed to load");
 		}
 	}
@@ -36,7 +37,7 @@ public class Enemy{
 		int drawX = x;
 		int drawY = y;
 		if (spriteLoaded) { 
-			g2.drawImage(sprite, drawX, drawY, WIDTH, HEIGHT, null);
+			g2.drawImage(sprite, drawX, drawY, 80, 120, null);
 	}
 		else {g2.setColor(color);
 	    g2.fillRect(x, y, WIDTH, HEIGHT);}
