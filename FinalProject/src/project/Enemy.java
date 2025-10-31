@@ -20,10 +20,11 @@ public class Enemy{
 	public Enemy(int x, int y) {
 		this.x = x; this.y = y;
 		try {
-			sprite = ImageIO.read(Enemy.class.getResource("enemyV1.png"));
+			sprite = ImageIO.read(Enemy.class.getResource("enemyV2.png"));
 			spriteLoaded = (sprite != null);
 		} catch (IOException | IllegalArgumentException ex) {
 			spriteLoaded = false; // fallback to oval
+			System.out.println("sprite failed to load");
 		}
 	}
 	 
