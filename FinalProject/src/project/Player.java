@@ -20,11 +20,11 @@ public class Player {
 	public Player(int x, int y) {
         this.x = x; this.y = y;
         try {
-			sprite = ImageIO.read(Player.class.getResource("characterV1.png"));
+			sprite = ImageIO.read(Player.class.getResource("characterV2.png"));
 			spriteLoaded = (sprite != null);
 		} catch (IOException | IllegalArgumentException ex) {
 			spriteLoaded = false; 
-			System.out.println(Player.class.getResource("characterV1.png")); // just put this line here to trouble shoot because sometimes character doesnt show up
+			System.out.println(Player.class.getResource("characterV2.png")); // just put this line here to trouble shoot because sometimes character doesnt show up
 			System.out.println("character failed to load");
 		}
 	}
