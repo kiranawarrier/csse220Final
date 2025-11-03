@@ -5,6 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  * Represents the player character, including movement, gravity, and rendering.
@@ -62,7 +65,19 @@ public class Player {
         if (dy == 0) {
             dy = -30;
             System.out.println(this.x + "x on right " + this.y);
+            try{
+                AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(
+                        Player.class.getResource("jumpsound.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            }
+            catch(Exception ex)
+            {System.out.println(" jump sound failed");
+            }
         }
+        
     }
 
     // gravity
