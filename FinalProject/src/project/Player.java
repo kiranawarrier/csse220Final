@@ -60,7 +60,7 @@ public class Player {
     // jump and print where for debugging location
     public void jump() {
         if (dy == 0) {
-            dy = -28;
+            dy = -35;
             System.out.println(this.x + "x on right " + this.y);
             try{
                 AudioInputStream audioInputStream =
@@ -79,7 +79,7 @@ public class Player {
 
     // gravity
     public void gravity() {
-        dy += 2;
+        dy += 3;
     }
 
     // paint and draw the sprite of player
