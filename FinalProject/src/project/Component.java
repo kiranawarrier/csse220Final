@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle; // Import Rectangle for collision detection
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -49,10 +50,11 @@ public class Component extends JComponent{
 		    }
 		    player.gravity();
 		    player.updateY();
-		    if (player.y + 120 >= GROUND_Y) {
-		        player.y = GROUND_Y - 120;
-		        player.dy = 0;
-		    }
+            if (player.y + player.getHeight() >= GROUND_Y) { // Use getHeight()
+                player.y = GROUND_Y - player.getHeight();    // Use getHeight()
+                player.dy = 0;
+            }
+            checkCollision();
 		    
 
 		    repaint();
@@ -92,6 +94,18 @@ public class Component extends JComponent{
 		player.right();
 		repaint();
 	}
+
+    // Checks if there is a collision between the player and the collectable item
+    private void checkCollisions() {
+        Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+        Rectangle itemRect = new Rectangle(item1.getX(), item1.getY(), item1.getWidth(), item1.getHeight());
+
+        if (item1.isVisible() && playerRect.intersects(itemRect)) {
+            item1.pickup();
+            score.increaseScore();
+        }
+    }
+
 	// timer start and stops
 	public void start() { timer.start(); }     // NEW
     public void stop()  { timer.stop(); }      // NEW
