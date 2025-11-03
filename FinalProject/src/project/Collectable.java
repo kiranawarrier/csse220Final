@@ -6,8 +6,10 @@ import java.awt.Graphics2D;
 public class Collectable {
 
     private int x, y;
-    private static int WIDTH = 20;
-    private static int HEIGHT = 20;
+    private static final int WIDTH = 20;
+    private static final int HEIGHT = 20;
+    public boolean isVisible = true;
+
 
     Color color = Color.YELLOW;
 
@@ -32,8 +34,6 @@ public class Collectable {
     public int getY() {
         return y;
     }
-
-    public boolean isVisible = true;
 
     public int getWidth() {
         return WIDTH;
