@@ -10,99 +10,98 @@ import javax.imageio.ImageIO;
  * Represents the player character, including movement, gravity, and rendering.
  */
 public class Player {
-    private BufferedImage sprite;
-    private boolean spriteLoaded = false;
-    int x, y;
-    int dx = 15;
-    int dy = 0;
-    int grav = 5;
-    Color color = Color.GREEN;
-    private static final int WIDTH = 40;
-    private static final int HEIGHT = 70;
+	private BufferedImage sprite;
+	private boolean spriteLoaded = false;
+	int x, y;
+	int dx = 15;
+	int dy = 0;
+	int grav = 5;
+	Color color = Color.GREEN;
+	private static final int WIDTH = 40;
+	private static final int HEIGHT = 70;
 
-    public static final int RENDERED_WIDTH = 80;
-    public static final int RENDERED_HEIGHT = 120;
+	public static final int RENDERED_WIDTH = 80;
+	public static final int RENDERED_HEIGHT = 120;
 
-    /**
-     * Creates a player at the given coordinates and attempts to load the sprite.
-     *
-     * @param x location, y location
-     *
-     */
-    public Player(int x, int y) {
-        this.x = x;
-        this.y = y;
-        try {
-            sprite = ImageIO.read(Player.class.getResource("characterV2.png"));
-            spriteLoaded = (sprite != null);
-        } catch (IOException | IllegalArgumentException ex) {
-            spriteLoaded = false;
-            System.out.println("FAILED: " + Player.class.getResource("characterV2.png"));
-            System.out.print("  character failed to load");
-        }
-    }
+	/**
+	 * Creates a player at the given coordinates and attempts to load the sprite.
+	 *
+	 * @param x location, y location
+	 *
+	 */
+	public Player(int x, int y) {
+		this.x = x;
+		this.y = y;
+		try {
+			sprite = ImageIO.read(Player.class.getResource("characterV2.png"));
+			spriteLoaded = (sprite != null);
+		} catch (IOException | IllegalArgumentException ex) {
+			spriteLoaded = false;
+			System.out.println("FAILED: " + Player.class.getResource("characterV2.png"));
+			System.out.print("  character failed to load");
+		}
+	}
 
-    // move left
-    public void left() {
-        x -= dx;
-    }
+	// move left
+	public void left() {
+		x -= dx;
+	}
 
-    // move right
-    public void right() {
-        x += dx;
-    }
+	// move right
+	public void right() {
+		x += dx;
+	}
 
-    // update the y level of player
-    public void updateY() {
-        y += dy;
-    }
+	// update the y level of player
+	public void updateY() {
+		y += dy;
+	}
 
-    // jump and print where for debugging location
-    public void jump() {
-        if (dy == 0) {
-            dy = -30;
-            System.out.println(this.x + "x on right " + this.y);
-        }
-    }
+	// jump and print where for debugging location
+	public void jump() {
+		if (dy == 0) {
+			dy = -30;
+			System.out.println(this.x + "x on right " + this.y);
+		}
+	}
 
-    // gravity
-    public void gravity() {
-        dy += 2;
-    }
+	// gravity
+	public void gravity() {
+		dy += 2;
+	}
 
-    // paint and draw the sprite of player
-    protected void paintPlayer(Graphics2D g2) {
-        int drawX = x;
-        int drawY = y;
-        if (spriteLoaded) {
-            g2.drawImage(sprite, drawX, drawY, 80, 120, null);
-        } else {
-            g2.setColor(color);
-            g2.fillRect(x, y, WIDTH, HEIGHT);
-        }
-    }
+	// paint and draw the sprite of player
+	protected void paintPlayer(Graphics2D g2) {
+		int drawX = x;
+		int drawY = y;
+		if (spriteLoaded) {
+			g2.drawImage(sprite, drawX, drawY, 80, 120, null);
+		} else {
+			g2.setColor(color);
+			g2.fillRect(x, y, WIDTH, HEIGHT);
+		}
+	}
 
-    // starting logic for resetting on death
-    public void die() {
-        x = 10;
-        y = 550;
+	// starting logic for resetting on death
+	public void die() {
+		x = 10;
+		y = 550;
 
+	}
 
-    }
+	public int getX() {
+		return x;
+	}
 
-    public int getX() {
-        return x;
-    }
+	public int getY() {
+		return y;
+	}
 
-    public int getY() {
-        return y;
-    }
+	public int getWidth() {
+		return spriteLoaded ? RENDERED_WIDTH : WIDTH;
+	}
 
-    public int getWidth() {
-        return spriteLoaded ? RENDERED_WIDTH : WIDTH;
-    }
-
-    public int getHeight() {
-        return spriteLoaded ? RENDERED_HEIGHT : HEIGHT;
-    }
+	public int getHeight() {
+		return spriteLoaded ? RENDERED_HEIGHT : HEIGHT;
+	}
 }
