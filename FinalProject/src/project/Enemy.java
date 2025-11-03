@@ -65,7 +65,13 @@ public class Enemy {
      *
      * @param g2 the graphics context used for drawing
      */
-	
+	public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 	
 	public void drawEnemy(Graphics2D g2){
 		int drawX = x;
