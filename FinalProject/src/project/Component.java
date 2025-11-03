@@ -56,7 +56,7 @@ public class Component extends JComponent{
             }
             platformCollisions();
 		    enemyCollisions();
-            itemCollisions();
+            if (panel.downPressed) itemCollisions();
 
 		    repaint();
 		});
