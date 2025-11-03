@@ -16,7 +16,7 @@ public class Enemy{
 	private boolean spriteLoaded = false;
 	Color color = Color.RED;
 	private int roamRange = 200;
-	private double roamSpeed = 0.07;
+	private double roamSpeed = 0.09;
 	private int homeX;
 	private double time = 0;
 	

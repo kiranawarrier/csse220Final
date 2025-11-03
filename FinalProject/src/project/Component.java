@@ -14,8 +14,8 @@ public class Component extends JComponent{
 	public static final int HEIGHT = 1080;
 	public static final Color BG = new Color(18, 29, 57);
 	public static final Color FG = new Color(8, 128, 38);
-	public static final int GROUND_Y = 700;
-	Player player = new Player(200,500);
+	public static final int GROUND_Y = 713;
+	Player player = new Player(10,550);
 	Enemy enemy = new Enemy(1000,592);
 
 	Timer timer;
@@ -28,7 +28,7 @@ public class Component extends JComponent{
     public Component(Panel panel) {
     	 this.panel = panel;
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		timer = new Timer(16, e -> {
+		timer = new Timer(20, e -> {
 		    if (panel.leftPressed)  player.left();
 		    if (panel.rightPressed) player.right();
 		    enemy.move();
