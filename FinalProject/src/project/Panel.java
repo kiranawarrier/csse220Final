@@ -4,18 +4,27 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JPanel;
-
+/**
+ * The Panel class acts as a container for the game canvas and manages
+ * keyboard input to control player movement.
+ */
 @SuppressWarnings("serial")
-public class Panel extends JPanel{
-	boolean leftPressed = false;
-	boolean rightPressed = false;
-	private final Component canvas = new Component(this);
-	
+public class Panel extends JPanel {
+    // Tracks whether the left movement key is pressed. 
+    boolean leftPressed = false;
+    // Tracks whether the right movement key is pressed. 
+    boolean rightPressed = false;
+    // The main game rendering and update component. 
+    private final Component canvas = new Component(this);
+    /**
+     * Constructs the Panel and sets up input listeners for player control.
+     */
 	public Panel() {
 		
 		setLayout(new java.awt.BorderLayout());
 		add(canvas, java.awt.BorderLayout.CENTER);
 		this.add(canvas);
+		// Key listener for controlling player movement
 		canvas.addKeyListener(new KeyAdapter() {
 		    @Override
 		    public void keyPressed(KeyEvent e) {
@@ -34,10 +43,11 @@ public class Panel extends JPanel{
 		    }
 		});
 	}
+	//Ensures the canvas is ready to receive keyboard input once displayed.
 	@Override
 	public void addNotify() {
 	    super.addNotify();
-	    canvas.requestFocusInWindow(); // NOW it works
+	    canvas.requestFocusInWindow(); 
 	}
 }
 	

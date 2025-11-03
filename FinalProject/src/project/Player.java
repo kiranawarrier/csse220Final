@@ -66,5 +66,6 @@ public class Player {
 		x = 10;
 		y = 550;
 		
+		
 	}
 	}

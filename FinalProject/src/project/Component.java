@@ -45,6 +45,7 @@ public class Component extends JComponent{
 		        player.y = GROUND_Y - 120;
 		        player.dy = 0;
 		    }
+		    
 
 		    repaint();
 		});

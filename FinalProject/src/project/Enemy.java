@@ -7,19 +7,39 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 
-
-public class Enemy{
-	private int x,y;
-	private static final int WIDTH = 70;
-	private static final int HEIGHT = 70;
-	private BufferedImage sprite;
-	private boolean spriteLoaded = false;
-	Color color = Color.RED;
-	private int roamRange = 200;
-	private double roamSpeed = 0.09;
-	private int homeX;
-	private double time = 0;
-	
+/**
+ * Represents an enemy character that moves back and forth horizontally
+ * within a defined roaming range. 
+ */
+public class Enemy {
+    /** Current x-position of the enemy. */
+    private int x;
+    /** Current y-position of the enemy. */
+    private int y;
+    /** Default width of the fallback rectangle sprite. */
+    private static final int WIDTH = 70;
+    /** Default height of the fallback rectangle sprite. */
+    private static final int HEIGHT = 70;
+    /** Image used to display the enemy sprite. */
+    private BufferedImage sprite;
+    /** True if the sprite image was successfully loaded. */
+    private boolean spriteLoaded = false;
+    /** Fallback color used when the sprite cannot be loaded. */
+    Color color = Color.RED;
+    /** Distance from the starting x-position that the enemy will roam. */
+    private int roamRange = 200;
+    /** Speed factor controlling how fast the enemy moves within its range. */
+    private double roamSpeed = 0.09;
+    /** The enemy's starting x-position (center of roaming range). */
+    private int homeX;
+    /** Internal time counter used to calculate sinusoidal movement. */
+    private double time = 0;
+    /**
+     * Constructs an Enemy at the specified coordinates.
+     *
+     * @param x the initial x-position
+     * @param y the initial y-position
+     */
 	public Enemy(int x, int y) {
 		this.x = x; this.y = y;
 		this.homeX = x; 
@@ -32,11 +52,20 @@ public class Enemy{
 			System.out.println("sprite failed to load");
 		}
 	}
-	 
+	 /**
+     * Updates the enemy's position to create smooth back-and-forth movement.
+     */
 	public void move() {
 		time += roamSpeed;
 		x = (int)(homeX + Math.sin(time) * roamRange); // works to keep the enemy instance within a set area as sin goes from 0 -> set value
 	}
+	 /**
+     * Draws the enemy to the screen. Uses the sprite if available,
+     * otherwise draws a colored rectangle as a fallback.
+     *
+     * @param g2 the graphics context used for drawing
+     */
+	
 	
 	public void drawEnemy(Graphics2D g2){
 		int drawX = x;
