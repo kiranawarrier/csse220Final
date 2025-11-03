@@ -14,7 +14,7 @@ public class Player {
     private boolean spriteLoaded = false;
     int x, y;
     int dx = 15;
-    int dy = 0;
+    double dy = 0;
     int grav = 5;
     Color color = Color.GREEN;
     private static final int WIDTH = 40;

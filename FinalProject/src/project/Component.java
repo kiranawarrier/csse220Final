@@ -54,6 +54,7 @@ public class Component extends JComponent{
                 player.y = GROUND_Y - player.getHeight();    // Use getHeight()
                 player.dy = 0;
             }
+            platformCollisions();
             checkCollisions();
 		    
 
@@ -105,6 +106,25 @@ public class Component extends JComponent{
             score.updateScore();
         }
     }
+    
+    private void platformCollisions() {
+    	if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat1.getY() + plat1.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
+        	player.dy = 0;
+        	player.y = plat1.getY() - player.getHeight();
+        }
+        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat2.getY() + plat2.getHeight() && player.getY() + player.getHeight() > plat2.getY()) {
+        	player.dy = 0;
+        	player.y = plat2.getY() - player.getHeight();
+        }
+        else if(player.getX() + player.getWidth() > plat1.getX() && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() < plat1.getY() + plat1.getHeight() && player.getY() > plat1.getY()) {
+        	player.dy = 0;
+        }
+        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() < plat2.getY() + plat2.getHeight() && player.getY() > plat2.getY()) {
+        	player.dy = 0;
+        }
+        
+    }
+    		
 
 	// timer start and stops
 	public void start() { timer.start(); }     // NEW

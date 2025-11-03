@@ -26,6 +26,22 @@ public class Platform {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getWidth() {
+		return WIDTH;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getHeight() {
+		return HEIGHT;
+	}
 	 /**
      * Draws the platform as a filled rectangle.
      * @param g2 the graphics context used for drawing
