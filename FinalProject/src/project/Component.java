@@ -84,9 +84,18 @@ public class Component extends JComponent{
 	}
 	// player jumps
 	public void playerJump() {
-		if(player.getY() + player.getHeight() >= GROUND_Y)
-		player.jump();
-		repaint();
+		if(player.getY() + player.getHeight() >= GROUND_Y) {
+			player.jump();
+			repaint();
+		}
+		if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth()) {
+			player.jump();
+			repaint();
+		}
+		if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth()) {
+			player.jump();
+			repaint();
+		}
 	}
 	// player moves left
 	public void playerLeft() {
