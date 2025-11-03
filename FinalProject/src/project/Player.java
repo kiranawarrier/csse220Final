@@ -20,7 +20,7 @@ public class Player {
 	public Player(int x, int y) {
         this.x = x; this.y = y;
         try {
-			sprite = ImageIO.read(Player.class.getResource("characterV2.png"));
+			sprite = ImageIO.read(Player.class.getResource("/project/characterV2.png"));
 			spriteLoaded = (sprite != null);
 		} catch (IOException | IllegalArgumentException ex) {
 			spriteLoaded = false; 
