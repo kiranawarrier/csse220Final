@@ -92,7 +92,6 @@ public class Component extends JComponent{
 		player.right();
 		repaint();
 	}
-	
 	// timer start and stops
 	public void start() { timer.start(); }     // NEW
     public void stop()  { timer.stop(); }      // NEW
