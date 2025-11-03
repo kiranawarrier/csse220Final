@@ -55,7 +55,7 @@ public class Component extends JComponent{
                 player.dy = 0;
             }
             platformCollisions();
-            checkCollisions();
+            itemCollisions();
 		    
 
 		    repaint();
@@ -96,7 +96,7 @@ public class Component extends JComponent{
 		repaint();
 	}
     // Checks if there is a collision between the player and the collectable item
-    private void checkCollisions() {
+    private void itemCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         Rectangle itemRect = new Rectangle(item1.getX(), item1.getY(), item1.getWidth(), item1.getHeight());
 

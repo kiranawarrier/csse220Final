@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Collectable {
 
     private int x, y;
-    public boolean isVisible = false;
+    public boolean isVisible = true;
 
     private BufferedImage sprite;
     private boolean spriteLoaded = false;
