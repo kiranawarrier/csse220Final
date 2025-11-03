@@ -60,7 +60,7 @@ public class Player {
     // jump and print where for debugging location
     public void jump() {
         if (dy == 0) {
-            dy = -30;
+            dy = -28;
             System.out.println(this.x + "x on right " + this.y);
             try{
                 AudioInputStream audioInputStream =
