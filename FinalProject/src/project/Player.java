@@ -70,16 +70,17 @@ public class Player {
 			try{
 			    AudioInputStream audioInputStream =
 			        AudioSystem.getAudioInputStream(
-			            this.getClass().getResource("jumpsound.mp3"));
+			            Player.class.getResource("jumpsound.wav"));
 			    Clip clip = AudioSystem.getClip();
 			    clip.open(audioInputStream);
 			    clip.start();
 			}
-			catch(Exception ex)
-			{
-			}
+			catch(Exception ex) {
+			System.out.println("the sound did not play :(  ");
+			System.out.print("    FAILED: " + Player.class.getResource("jumpsound.wav"));
+			}}
 		}
-	}
+	
 
 	// gravity
 	public void gravity() {
