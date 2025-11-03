@@ -27,9 +27,9 @@ public class Enemy {
     /** Fallback color used when the sprite cannot be loaded. */
     Color color = Color.RED;
     /** Distance from the starting x-position that the enemy will roam. */
-    private int roamRange = 200;
+    private int roamRange = 260;
     /** Speed factor controlling how fast the enemy moves within its range. */
-    private double roamSpeed = 0.09;
+    private double roamSpeed = 0.1;
     /** The enemy's starting x-position (center of roaming range). */
     private int homeX;
     /** Internal time counter used to calculate sinusoidal movement. */

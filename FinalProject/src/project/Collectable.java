@@ -62,6 +62,7 @@ public class Collectable {
             catch(Exception ex)
         {System.out.println(" coin sound failed");
         }
+        
     }
 
     public int getX() {

@@ -47,6 +47,7 @@ public class Component extends JComponent{
 			}
 		    if (panel.leftPressed)  player.left();
 		    if (panel.rightPressed) player.right();
+		    if (panel.downPressed) player.fall();
 		    enemy.move();
 		    int w = 1560;
 		    if (player.x > w) {
@@ -63,7 +64,7 @@ public class Component extends JComponent{
             }
             platformCollisions();
 		    enemyCollisions();
-            itemCollisions();
+            if (panel.spacePressed) itemCollisions();
 
 		    repaint();
 		});
@@ -116,10 +117,11 @@ public class Component extends JComponent{
     private void itemCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         Rectangle itemRect = new Rectangle(item1.getX(), item1.getY(), item1.getWidth(), item1.getHeight());
-
+        
         if (item1.isVisible() && playerRect.intersects(itemRect)) {
             item1.pickup();
             score.updateScore();
+            
         }
     }
     
