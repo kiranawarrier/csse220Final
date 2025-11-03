@@ -94,7 +94,6 @@ public class Component extends JComponent{
 		player.right();
 		repaint();
 	}
-
     // Checks if there is a collision between the player and the collectable item
     private void checkCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
