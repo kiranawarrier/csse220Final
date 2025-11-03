@@ -7,7 +7,11 @@ import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
-
+/**
+ * Main game rendering and update component.
+ * Handles drawing game objects, applying gravity, player movement,
+ * enemy movement, and maintaining the game loop timer.
+ */
 @SuppressWarnings("serial")
 public class Component extends JComponent{
 	public static final int WIDTH = 1920;
@@ -24,7 +28,11 @@ public class Component extends JComponent{
     Collectable item1 = new Collectable(240,240);
     Scoreboard score = new Scoreboard();
     Panel panel;
-
+    /**
+     * Constructs the main game Component and starts the update timer.
+     *
+     * @param panel reference to the parent Panel for input state
+     */
     public Component(Panel panel) {
     	 this.panel = panel;
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -51,7 +59,9 @@ public class Component extends JComponent{
 		});
 	    timer.start();
 	}
-	
+    /**
+     * Draws all game elements to the screen.
+     */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -67,32 +77,23 @@ public class Component extends JComponent{
         item1.drawCollectable(g2);
         score.displayScore(g2);
 	}
+	// player jumps
 	public void playerJump() {
 		player.jump();
 		repaint();
 	}
-
-	//public void movePlayer() {
-		//player.left();
-		//player.right();
-		//repaint();
-	//}
-
+	// player moves left
 	public void playerLeft() {
 		player.left();
 		repaint();
 	}
-	
+	// player moves right
 	public void playerRight() {
 		player.right();
 		repaint();
 	}
 	
-	public void playerGravity() {
-		player.updateY();
-		repaint();
-	}
-	
+	// timer start and stops
 	public void start() { timer.start(); }     // NEW
     public void stop()  { timer.stop(); }      // NEW
 	
