@@ -56,9 +56,7 @@ public class Component extends JComponent{
             }
             platformCollisions();
 		    enemyCollisions();
-
             itemCollisions();
-
 
 		    repaint();
 		});
@@ -128,7 +126,7 @@ public class Component extends JComponent{
         
     }
     private void enemyCollisions() {
-    	if (player.getX() == enemy.getX()) {
+    	if (player.getX() == enemy.getX() || player.getY()==enemy.getY()) {
     		player.die();
     		score.dead();
     		System.out.println("You Died");
