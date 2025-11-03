@@ -22,6 +22,10 @@ public class Scoreboard {
     public void dead() {
     	livesLeft--;
     }
+    
+    public int getLives() {
+    	return livesLeft;
+    }
 
     public void displayScore(Graphics2D g2) {
         g2.setFont(new Font("Arial", Font.BOLD, 12));
