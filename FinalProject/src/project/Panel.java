@@ -15,6 +15,7 @@ public class Panel extends JPanel {
     // Tracks whether the right movement key is pressed. 
     boolean rightPressed = false;
     boolean downPressed = false;
+    boolean spacePressed = false;
     // The main game rendering and update component. 
     private final Component canvas = new Component(this);
     /**
@@ -34,6 +35,7 @@ public class Panel extends JPanel {
 		            case KeyEvent.VK_RIGHT -> rightPressed = true;
 		            case KeyEvent.VK_UP    -> canvas.playerJump();
 		            case KeyEvent.VK_DOWN  -> downPressed = true;
+		            case KeyEvent.VK_SPACE -> spacePressed = true;
 		        }
 		    }
 		    @Override
@@ -42,6 +44,7 @@ public class Panel extends JPanel {
 		            case KeyEvent.VK_LEFT  -> leftPressed = false;
 		            case KeyEvent.VK_RIGHT -> rightPressed = false;
 		            case KeyEvent.VK_DOWN  -> downPressed = false;
+		            case KeyEvent.VK_SPACE -> spacePressed = false;
 		        }
 		    }
 		});

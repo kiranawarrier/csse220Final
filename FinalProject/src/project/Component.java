@@ -40,6 +40,7 @@ public class Component extends JComponent{
 		timer = new Timer(20, e -> {
 		    if (panel.leftPressed)  player.left();
 		    if (panel.rightPressed) player.right();
+		    if (panel.downPressed) player.fall();
 		    enemy.move();
 		    int w = 1560;
 		    if (player.x > w) {
@@ -56,7 +57,7 @@ public class Component extends JComponent{
             }
             platformCollisions();
 		    enemyCollisions();
-            if (panel.downPressed) itemCollisions();
+            if (panel.spacePressed) itemCollisions();
 
 		    repaint();
 		});
@@ -113,6 +114,7 @@ public class Component extends JComponent{
         if (item1.isVisible() && playerRect.intersects(itemRect)) {
             item1.pickup();
             score.updateScore();
+            
         }
     }
     
