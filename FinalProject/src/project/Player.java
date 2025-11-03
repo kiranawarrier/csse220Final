@@ -61,4 +61,10 @@ public class Player {
 		else {g2.setColor(color);
 	    g2.fillRect(x, y, WIDTH, HEIGHT);}
 	}
+	
+	public void die() {
+		x = 10;
+		y = 550;
+		
+	}
 	}
