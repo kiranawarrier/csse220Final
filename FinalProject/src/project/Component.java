@@ -54,7 +54,7 @@ public class Component extends JComponent{
                 player.y = GROUND_Y - player.getHeight();    // Use getHeight()
                 player.dy = 0;
             }
-            checkCollision();
+            checkCollisions();
 		    
 
 		    repaint();
