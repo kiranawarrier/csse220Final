@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 
 /**
  * Represents the player character, including movement, gravity, and rendering.
@@ -14,7 +18,7 @@ public class Player {
 	private boolean spriteLoaded = false;
 	int x, y;
 	int dx = 15;
-	int dy = 0;
+	double dy = 0;
 	int grav = 5;
 	Color color = Color.GREEN;
 	private static final int WIDTH = 40;
@@ -62,6 +66,18 @@ public class Player {
 		if (dy == 0) {
 			dy = -30;
 			System.out.println(this.x + "x on right " + this.y);
+			
+			try{
+			    AudioInputStream audioInputStream =
+			        AudioSystem.getAudioInputStream(
+			            this.getClass().getResource("jumpsound.mp3"));
+			    Clip clip = AudioSystem.getClip();
+			    clip.open(audioInputStream);
+			    clip.start();
+			}
+			catch(Exception ex)
+			{
+			}
 		}
 	}
 
