@@ -59,7 +59,7 @@ public class Player {
     public void fall() {
     	dy = 45;
     }
-
+    
     // jump and print where for debugging location
     public void jump() {
         if (dy == 0) {
