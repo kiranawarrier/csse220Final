@@ -120,6 +120,7 @@ public class Component extends JComponent{
         }
         else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() < plat2.getY() + plat2.getHeight() && player.getY() > plat2.getY()) {
         	player.dy = 0;
+        
         }
         
     }
