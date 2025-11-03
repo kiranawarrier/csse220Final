@@ -27,7 +27,7 @@ public class Component extends JComponent{
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
     Collectable item1 = new Collectable(180,600);
-    Scoreboard score = new Scoreboard();
+    Scoreboard score = new Scoreboard(3);
     Panel panel;
     /**
      * Constructs the main game Component and starts the update timer.
@@ -56,7 +56,7 @@ public class Component extends JComponent{
             }
             platformCollisions();
             checkCollisions();
-		    
+		    enemyCollisions();
 
 		    repaint();
 		});
@@ -123,6 +123,13 @@ public class Component extends JComponent{
         
         }
         
+    }
+    private void enemyCollisions() {
+    	if (player.getX() == enemy.getX()) {
+    		player.die();
+    		score.dead();
+    		System.out.println("You Died");
+    	}
     }
     		
 

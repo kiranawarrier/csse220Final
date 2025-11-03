@@ -19,6 +19,9 @@ public class Scoreboard {
     public void updateScore() {
         score++;
     }
+    public void dead() {
+    	livesLeft--;
+    }
 
     public void displayScore(Graphics2D g2) {
         g2.setFont(new Font("Arial", Font.BOLD, 12));
