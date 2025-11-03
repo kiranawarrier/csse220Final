@@ -20,7 +20,7 @@ public class Player {
     double dy = 0;
     int grav = 5;
     Color color = Color.GREEN;
-    private static final int WIDTH = 80;
+    private static final int WIDTH = 70;
     private static final int HEIGHT = 110;
 
     /**
