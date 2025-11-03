@@ -102,7 +102,7 @@ public class Component extends JComponent{
 
         if (item1.isVisible() && playerRect.intersects(itemRect)) {
             item1.pickup();
-            score.increaseScore();
+            score.updateScore();
         }
     }
 

@@ -43,5 +43,7 @@ public class Collectable {
         return HEIGHT;
     }
 
-
+    public boolean isVisible() {
+        return isVisible;
+    }
 }
