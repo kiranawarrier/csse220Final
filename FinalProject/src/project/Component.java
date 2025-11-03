@@ -19,7 +19,7 @@ public class Component extends JComponent{
 	public static final int HEIGHT = 1080;
 	public static final Color BG = new Color(18, 29, 57);
 	public static final Color FG = new Color(8, 128, 38);
-	public static final int GROUND_Y = 713;
+	public static final int GROUND_Y = 702;
 	Player player = new Player(10,550);
 	Enemy enemy = new Enemy(1000,592);
 

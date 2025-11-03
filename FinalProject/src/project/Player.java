@@ -20,11 +20,8 @@ public class Player {
     double dy = 0;
     int grav = 5;
     Color color = Color.GREEN;
-    private static final int WIDTH = 40;
-    private static final int HEIGHT = 70;
-
-    public static final int RENDERED_WIDTH = 80;
-    public static final int RENDERED_HEIGHT = 120;
+    private static final int WIDTH = 80;
+    private static final int HEIGHT = 110;
 
     /**
      * Creates a player at the given coordinates and attempts to load the sprite.
@@ -114,10 +111,10 @@ public class Player {
     }
 
     public int getWidth() {
-        return spriteLoaded ? RENDERED_WIDTH : WIDTH;
+        return WIDTH;
     }
 
     public int getHeight() {
-        return spriteLoaded ? RENDERED_HEIGHT : HEIGHT;
+        return HEIGHT;
     }
 }
