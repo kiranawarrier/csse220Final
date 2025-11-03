@@ -26,7 +26,7 @@ public class Component extends JComponent{
 	Timer timer;
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
-    Collectable item1 = new Collectable(240,240);
+    Collectable item1 = new Collectable(180,600);
     Scoreboard score = new Scoreboard();
     Panel panel;
     /**
@@ -95,7 +95,6 @@ public class Component extends JComponent{
 		player.right();
 		repaint();
 	}
-
     // Checks if there is a collision between the player and the collectable item
     private void checkCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
