@@ -20,7 +20,7 @@ public class Component extends JComponent{
 	public static final Color BG = new Color(18, 29, 57);
 	public static final Color FG = new Color(8, 128, 38);
 	public static final int GROUND_Y = 702;
-	Player player = new Player(10,550);
+	Player player = new Player(10,592);
 	Enemy enemy = new Enemy(1000,592);
 
 	Timer timer;
@@ -135,7 +135,7 @@ public class Component extends JComponent{
         
     }
     private void enemyCollisions() {
-    	if (player.getX() == enemy.getX() || player.getY()==enemy.getY()) {
+    	if (player.getX() == enemy.getX() && player.getY()==enemy.getY()) {
     		player.die();
     		score.dead();
     		System.out.println("You Died");
