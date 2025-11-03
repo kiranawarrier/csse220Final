@@ -15,10 +15,14 @@ public class Enemy{
 	private BufferedImage sprite;
 	private boolean spriteLoaded = false;
 	Color color = Color.RED;
-	private int dx = 4;
-	 
+	private int roamRange = 200;
+	private double roamSpeed = 0.07;
+	private int homeX;
+	private double time = 0;
+	
 	public Enemy(int x, int y) {
 		this.x = x; this.y = y;
+		this.homeX = x; 
 		try {
 			sprite = ImageIO.read(Enemy.class.getResource("enemyV2.png"));
 			spriteLoaded = (sprite != null);
@@ -30,7 +34,8 @@ public class Enemy{
 	}
 	 
 	public void move() {
-		x += dx;
+		time += roamSpeed;
+		x = (int)(homeX + Math.sin(time) * roamRange); // works to keep the enemy instance within a set area as sin goes from 0 -> set value
 	}
 	
 	public void drawEnemy(Graphics2D g2){

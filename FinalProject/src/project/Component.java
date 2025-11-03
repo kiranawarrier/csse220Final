@@ -31,7 +31,7 @@ public class Component extends JComponent{
 		timer = new Timer(16, e -> {
 		    if (panel.leftPressed)  player.left();
 		    if (panel.rightPressed) player.right();
-		    
+		    enemy.move();
 		    int w = 1560;
 		    if (player.x > w) {
 		        player.x = -35;
