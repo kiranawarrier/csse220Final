@@ -19,7 +19,7 @@ public class Enemy {
     /** Default width of the fallback rectangle sprite. */
     private static final int WIDTH = 70;
     /** Default height of the fallback rectangle sprite. */
-    private static final int HEIGHT = 70;
+    private static final int HEIGHT = 110;
     /** Image used to display the enemy sprite. */
     private BufferedImage sprite;
     /** True if the sprite image was successfully loaded. */
