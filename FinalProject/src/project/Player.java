@@ -112,6 +112,9 @@ public class Player {
     public int getY() {
         return y;
     }
+    public double getDy() {
+    	return dy;
+    }
 
     public int getWidth() {
         return WIDTH;
