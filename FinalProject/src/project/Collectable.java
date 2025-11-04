@@ -38,14 +38,16 @@ public class Collectable {
     }
 
     public void drawCollectable(Graphics2D g2) {
-        int drawX = x;
-        int drawY = y;
+        if (isVisible) {
+            int drawX = x;
+            int drawY = y;
 
-        if (spriteLoaded) {
-            g2.drawImage(sprite, drawX, drawY, RENDERED_WIDTH, RENDERED_HEIGHT, null);
-        } else {
-            g2.setColor(color);
-            g2.fillRect(x, y, WIDTH, HEIGHT);
+            if (spriteLoaded) {
+                g2.drawImage(sprite, drawX, drawY, RENDERED_WIDTH, RENDERED_HEIGHT, null);
+            } else {
+                g2.setColor(color);
+                g2.fillRect(x, y, WIDTH, HEIGHT);
+            }
         }
     }
 

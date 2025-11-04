@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle; // Import Rectangle for collision detection
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.Timer;
 /**
  * Main game rendering and update component.
@@ -29,6 +31,8 @@ public class Component extends JComponent{
     Collectable item1 = new Collectable(180,600);
     Scoreboard score = new Scoreboard(3);
     Panel panel;
+    ImageIcon endScreen = new ImageIcon("endScreen.png");
+    JLabel endScreenLabel = new JLabel(endScreen);
     /**
      * Constructs the main game Component and starts the update timer.
      *
@@ -38,6 +42,9 @@ public class Component extends JComponent{
     	 this.panel = panel;
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		timer = new Timer(20, e -> {
+			if(score.getLives() == 0) {
+				return; //change later to allow restart
+			}
 		    if (panel.leftPressed)  player.left();
 		    if (panel.rightPressed) player.right();
 		    if (panel.downPressed) player.fall();
@@ -119,6 +126,9 @@ public class Component extends JComponent{
         }
     }
     
+    /**
+     * creates collisions for the top and bottom edges of the platforms
+     */
     private void platformCollisions() {
     	if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat1.getY() + plat1.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
         	player.dy = 0;
@@ -137,6 +147,9 @@ public class Component extends JComponent{
         }
         
     }
+    /**
+     * checks if the player model intersects enemy model and kills the player if it is
+     */
     private void enemyCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         Rectangle enemyRect = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
