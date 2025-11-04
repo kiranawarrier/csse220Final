@@ -1,9 +1,5 @@
 package project;
-<<<<<<< Updated upstream
 import java.awt.Color;
-=======
-
->>>>>>> Stashed changes
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -167,14 +163,8 @@ public class Component extends JComponent{
             	player.y = plat1.getY() - player.getHeight();
             }
     		else if(player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
-            	player.dy = 0;
-<<<<<<< Updated upstream
-            }} }
-=======
-            }
-    	}
-    }
->>>>>>> Stashed changes
+            	player.dy = 0;}}}
+
     /**
      * checks if the player model intersects enemy model and kills the player if it is
      */
