@@ -1,10 +1,10 @@
 package project;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle; // Import Rectangle for collision detection
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -24,24 +24,26 @@ public class Component extends JComponent{
 	public static final Color FG = new Color(8, 128, 38);
 	public static final int GROUND_Y = 702;
 	Player player = new Player(10,592);
-	Enemy enemy = new Enemy(1000,592);
-
+	ArrayList<Enemy> E = new ArrayList<>();
+	Enemy enemy = new Enemy(1000,592,260,0.1);
+	Enemy enemy2 = new Enemy(1260,442,90,0.05);
+	{E.add(enemy);}
+	{E.add(enemy2);}
 	Timer timer;
-	
 	ArrayList<Platform> plats = new ArrayList<>();
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
 	{plats.add(plat1);}//throws error when curly brackets removed?
 	{plats.add(plat2);}
-	
 	ArrayList<Collectable> coins = new ArrayList<>();
+	Collectable item = new Collectable(350,300);
     Collectable item1 = new Collectable(180,600);
-    Collectable item2 = new Collectable(1000,400);
+    Collectable item2 = new Collectable(1000,450);
     Collectable item3 = new Collectable(580,600);
+    {coins.add(item);}
     {coins.add(item1);}
     {coins.add(item2);}
     {coins.add(item3);}
-    
     Scoreboard score = new Scoreboard(3);
     Panel panel;
     ImageIcon endScreen = new ImageIcon("endScreen.png");
@@ -62,6 +64,7 @@ public class Component extends JComponent{
 		    if (panel.rightPressed) player.right();
 		    if (panel.downPressed) player.fall();
 		    enemy.move();
+		    enemy2.move();
 		    int w = 1560;
 		    if (player.x > w) {
 		        player.x = -35;
@@ -95,7 +98,9 @@ public class Component extends JComponent{
 		g.setColor(FG);
 		g.fillRect(0, 700, WIDTH, HEIGHT);
 		player.paintPlayer(g2);
-		enemy.drawEnemy(g2);
+		for (Enemy e: E) {
+			e.drawEnemy(g2);
+		}
 		for (Platform plat : plats) {
 			plat.drawPlatform(g2);
 		}
@@ -115,7 +120,6 @@ public class Component extends JComponent{
 			player.jump();
 			repaint();
 		}
-		
 		if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth()) {
 			player.jump();
 			repaint();
@@ -140,12 +144,7 @@ public class Component extends JComponent{
              if (collectable.isVisible() && playerRect.intersects(itemRect)) {
             	 collectable.pickup();
                  score.updateScore();
-                 
-             }
-		}
-       
-    }
-    
+                  }} }
     /**
      * creates collisions for the top and bottom edges of the platforms
      */
@@ -157,26 +156,7 @@ public class Component extends JComponent{
             }
     		else if(player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
             	player.dy = 0;
-            
-            }
-    	}
-//    	if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat1.getY() + plat1.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
-//        	player.dy = 0;
-//        	player.y = plat1.getY() - player.getHeight();
-//        }
-//        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat2.getY() + plat2.getHeight() && player.getY() + player.getHeight() > plat2.getY()) {
-//        	player.dy = 0;
-//        	player.y = plat2.getY() - player.getHeight();
-//        }
-//        else if(player.getX() + player.getWidth() > plat1.getX() && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() < plat1.getY() + plat1.getHeight() && player.getY() > plat1.getY()) {
-//        	player.dy = 0;
-//        }
-//        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() < plat2.getY() + plat2.getHeight() && player.getY() > plat2.getY()) {
-//        	player.dy = 0;
-//        
-//        }
-        
-    }
+            }} }
     /**
      * checks if the player model intersects enemy model and kills the player if it is
      */
