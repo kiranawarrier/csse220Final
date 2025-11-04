@@ -52,7 +52,10 @@ public class Scoreboard {
      * @param g2
      */
     public void displayScore(Graphics2D g2) {
-        g2.setFont(new Font("Monospaced", Font.BOLD, 24));
+
+
+
+        g2.setFont(new Font("PressStart2P-Regular", Font.BOLD, 24));
         g2.setColor(Color.WHITE);
         g2.drawString("Score: " + this.score, 20, 30);
         g2.drawString("Lives: " + this.livesLeft, 20, 60);
