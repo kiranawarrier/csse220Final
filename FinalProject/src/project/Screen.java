@@ -26,7 +26,11 @@ public class Screen {
     }
     
     public void displayScreen(Graphics2D g2){
+    	g2.setColor(BG);
+    	g2.fillRect(0, 0, WIDTH, HEIGHT);
     	
+    	g2.setColor(FG);
+    	g2.fillRect(0, 700, WIDTH, HEIGHT - 700);
     }
     
     public void displayEndScreen(Graphics2D g2, int timeLeft) {

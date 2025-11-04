@@ -1,9 +1,5 @@
 package project;
-<<<<<<< Updated upstream
-import java.awt.Color;
-=======
 
->>>>>>> Stashed changes
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -65,6 +61,9 @@ public class Component extends JComponent{
 				}
 				else {
 					time = 0;
+					score.resetScore();
+					player.x = 10;
+					player.y = 550;
 				}
 				//return; //change later to allow restart
 			}
@@ -101,6 +100,7 @@ public class Component extends JComponent{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		screen.displayScreen(g2);
 		player.paintPlayer(g2);
 		for (Enemy e: E) {
 			e.drawEnemy(g2);
@@ -168,13 +168,11 @@ public class Component extends JComponent{
             }
     		else if(player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
             	player.dy = 0;
-<<<<<<< Updated upstream
-            }} }
-=======
             }
-    	}
+    	} 
     }
->>>>>>> Stashed changes
+           
+    
     /**
      * checks if the player model intersects enemy model and kills the player if it is
      */
