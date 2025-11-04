@@ -132,29 +132,37 @@ public class Component extends JComponent{
      * creates collisions for the top and bottom edges of the platforms
      */
     private void platformCollisions() {
-    	Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-		Rectangle platform1Rect = new Rectangle(plat1.getX(),plat1.getY(),plat1.getWidth(),plat1.getHeight());
-		Rectangle platform2Rect = new Rectangle(plat2.getX(),plat2.getY(),plat2.getWidth(),plat2.getHeight());
+//    	Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+//		Rectangle platform1Rect = new Rectangle(plat1.getX(),plat1.getY(),plat1.getWidth(),plat1.getHeight());
+//		Rectangle platform2Rect = new Rectangle(plat2.getX(),plat2.getY(),plat2.getWidth(),plat2.getHeight());
+//		
+//		if (playerRect.intersects(platform1Rect) || playerRect.intersects(platform2Rect)) {
+//			if (player.getY() <  plat1.getY()) {
+//				player.dy = 0;
+//				System.out.println("first case ");
+//			}
+//		else {
+//			player.dy = 0;
+//			player.y = plat1.getY() - player.getHeight();
+//			System.out.println("second case ");}
+//		}
 		
-		if (playerRect.intersects(platform1Rect) || playerRect.intersects(platform2Rect)) {
-			player.dy = 0;
-			player.y = plat1.getY() - player.getHeight();
-		}
-//    	if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat1.getY() + plat1.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
-//        	player.dy = 0;
-//        	player.y = plat1.getY() - player.getHeight();
-//        }
-//        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat2.getY() + plat2.getHeight() && player.getY() + player.getHeight() > plat2.getY()) {
-//        	player.dy = 0;
-//        	player.y = plat2.getY() - player.getHeight();
-//        }
-//        else if(player.getX() + player.getWidth() > plat1.getX() && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() < plat1.getY() + plat1.getHeight() && player.getY() > plat1.getY()) {
-//        	player.dy = 0;
-//        }
-//        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() < plat2.getY() + plat2.getHeight() && player.getY() > plat2.getY()) {
-//        	player.dy = 0;
-//        
-//        }
+		
+    	if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat1.getY() + plat1.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
+        	player.dy = 0;
+        	player.y = plat1.getY() - player.getHeight();
+        }
+        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat2.getY() + plat2.getHeight() && player.getY() + player.getHeight() > plat2.getY()) {
+        	player.dy = 0;
+        	player.y = plat2.getY() - player.getHeight();
+        }
+        else if(player.getX() + player.getWidth() > plat1.getX() && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() < plat1.getY() + plat1.getHeight() && player.getY() > plat1.getY()) {
+        	player.dy = 0;
+        }
+        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() < plat2.getY() + plat2.getHeight() && player.getY() > plat2.getY()) {
+        	player.dy = 0;
+        
+        }
         
     }
     /**
