@@ -43,7 +43,7 @@ public class Component extends JComponent{
     {coins.add(item1);}
     {coins.add(item2);}
     {coins.add(item3);}
-    Scoreboard score = new Scoreboard(3);
+    Scoreboard score = new Scoreboard();
     Panel panel;
     ImageIcon endScreen = new ImageIcon("endScreen.png");
     JLabel endScreenLabel = new JLabel(endScreen);
@@ -54,6 +54,7 @@ public class Component extends JComponent{
      */
     public Component(Panel panel) {
     	 this.panel = panel;
+         score.resetScore();
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		timer = new Timer(20, e -> {
 			if(score.getLives() == 0) {
