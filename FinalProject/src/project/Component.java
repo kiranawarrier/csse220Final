@@ -1,5 +1,4 @@
 package project;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -144,7 +143,7 @@ public class Component extends JComponent{
 		player.right();
 		repaint();
 	}
-    // Checks if there is a collision between the player and the collectable item
+    // Checks if there is a collision between the player and the collectible item
     private void itemCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         for (Collectable collectable : coins) {
