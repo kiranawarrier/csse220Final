@@ -14,7 +14,7 @@ import javax.swing.Timer;
  */
 @SuppressWarnings("serial")
 public class Component extends JComponent{
-	public static final int WIDTH = 1920;
+	public static final int WIDTH = 1600;
 	public static final int HEIGHT = 1080;
 	public static final int GROUND_Y = 702;
 	Player player = new Player(10,592);
@@ -68,7 +68,7 @@ public class Component extends JComponent{
 		    if (panel.downPressed) player.fall();
 		    enemy.move();
 		    enemy2.move();
-		    int w = 1560;
+		    int w = 1500;
 		    if (player.x > w) {
 		        player.x = -35;
 		    }
