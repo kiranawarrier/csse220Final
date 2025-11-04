@@ -13,7 +13,7 @@ public class App {
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);
         frame.setContentPane(panel);   // add our game panel
         frame.pack();                            // size to panel's preferred size
-        frame.setLocationRelativeTo(null);       // centered placement
+        //frame.setLocationRelativeTo(null);       // centered placement
     }
     // Makes the application window visible. 
     public void show() {
