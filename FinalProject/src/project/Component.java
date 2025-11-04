@@ -137,11 +137,13 @@ public class Component extends JComponent{
         
     }
     private void enemyCollisions() {
-    	if ((player.getX() >= enemy.getX() && player.getX() <= enemy.getX() + 70) && player.getY() >= enemy.getY() - 110) {
-    		player.die();
-    		score.dead();
-    		System.out.println("You Died");
-    	}
+        Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+        Rectangle enemyRect = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
+        if (playerRect.intersects(enemyRect)) {
+            player.die();
+            score.dead();
+            System.out.println("You Died");
+        }
     }
     		
 

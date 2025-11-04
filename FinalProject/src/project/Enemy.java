@@ -82,4 +82,10 @@ public class Enemy {
 		else {g2.setColor(color);
 	    g2.fillRect(x, y, WIDTH, HEIGHT);}
 	}
+	public int getWidth() {
+		return WIDTH;
+	}
+	public int getHeight() {
+		return HEIGHT;
+	}
 }
