@@ -1,14 +1,16 @@
 package project;
+<<<<<<< Updated upstream
 import java.awt.Color;
+=======
+
+>>>>>>> Stashed changes
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle; // Import Rectangle for collision detection
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.Timer;
 /**
  * Main game rendering and update component.
@@ -19,8 +21,6 @@ import javax.swing.Timer;
 public class Component extends JComponent{
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
-	public static final Color BG = new Color(18, 29, 57);
-	public static final Color FG = new Color(8, 128, 38);
 	public static final int GROUND_Y = 702;
 	Player player = new Player(10,592);
 	ArrayList<Enemy> E = new ArrayList<>();
@@ -45,8 +45,10 @@ public class Component extends JComponent{
     {coins.add(item3);}
     Scoreboard score = new Scoreboard();
     Panel panel;
-    ImageIcon endScreen = new ImageIcon("endScreen.png");
-    JLabel endScreenLabel = new JLabel(endScreen);
+    
+    int time = 0; // used to time when to restart game 
+    
+    Screen screen = new Screen();
     /**
      * Constructs the main game Component and starts the update timer.
      *
@@ -58,7 +60,13 @@ public class Component extends JComponent{
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		timer = new Timer(20, e -> {
 			if(score.getLives() == 0) {
-				return; //change later to allow restart
+				if(time < 3000) {
+					time += 20;
+				}
+				else {
+					time = 0;
+				}
+				//return; //change later to allow restart
 			}
 		    if (panel.leftPressed)  player.left();
 		    if (panel.rightPressed) player.right();
@@ -93,10 +101,6 @@ public class Component extends JComponent{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		g.setColor(BG);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		g.setColor(FG);
-		g.fillRect(0, 700, WIDTH, HEIGHT);
 		player.paintPlayer(g2);
 		for (Enemy e: E) {
 			e.drawEnemy(g2);
@@ -108,6 +112,14 @@ public class Component extends JComponent{
 			collectable.drawCollectable(g2);
         }
         score.displayScore(g2);
+        if(time > 0 && time < 1000) {
+        	screen.displayEndScreen(g2, 3);
+        }else if (time > 0 && time < 2000) {
+        	screen.displayEndScreen(g2, 2);
+        }
+        else if(time  > 0 && time < 3000) {
+        	screen.displayEndScreen(g2, 1);
+        }
 	}
 	// player jumps
 	public void playerJump() {
@@ -156,7 +168,13 @@ public class Component extends JComponent{
             }
     		else if(player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
             	player.dy = 0;
+<<<<<<< Updated upstream
             }} }
+=======
+            }
+    	}
+    }
+>>>>>>> Stashed changes
     /**
      * checks if the player model intersects enemy model and kills the player if it is
      */
