@@ -14,7 +14,7 @@ import javax.swing.Timer;
  */
 @SuppressWarnings("serial")
 public class Component extends JComponent{
-	public static final int WIDTH = 1600;
+	public static final int WIDTH = 1500;
 	public static final int HEIGHT = 1080;
 	public static final int GROUND_Y = 702;
 	Player player = new Player(10,592);
@@ -60,6 +60,9 @@ public class Component extends JComponent{
 				}
 				else {
 					time = 0;
+					score.resetScore();
+					player.x = 10;
+					player.y = 550;
 				}
 				//return; //change later to allow restart
 			}
@@ -96,6 +99,7 @@ public class Component extends JComponent{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		screen.displayScreen(g2);
 		player.paintPlayer(g2);
 		for (Enemy e: E) {
 			e.drawEnemy(g2);
@@ -162,8 +166,11 @@ public class Component extends JComponent{
             	player.y = plat1.getY() - player.getHeight();
             }
     		else if(player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
+
             	player.dy = 0;}}}
 
+            	
+    	
     /**
      * checks if the player model intersects enemy model and kills the player if it is
      */
