@@ -83,6 +83,7 @@ public class Component extends JComponent{
 	}
 	// player jumps
 	public void playerJump() {
+		
 		if(player.getY() + player.getHeight() >= GROUND_Y) {
 			player.jump();
 			repaint();
