@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle; // Import Rectangle for collision detection
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -28,7 +29,14 @@ public class Component extends JComponent{
 	Timer timer;
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
+	ArrayList<Collectable> coins = new ArrayList<>();
     Collectable item1 = new Collectable(180,600);
+    Collectable item2 = new Collectable(1000,400);
+    Collectable item3 = new Collectable(580,600);
+    {coins.add(item1);}
+    {coins.add(item2);}
+    {coins.add(item3);}
+    
     Scoreboard score = new Scoreboard(3);
     Panel panel;
     ImageIcon endScreen = new ImageIcon("endScreen.png");
@@ -85,7 +93,8 @@ public class Component extends JComponent{
 		enemy.drawEnemy(g2);
 		plat1.drawPlatform(g2);
 		plat2.drawPlatform(g2);
-        item1.drawCollectable(g2);
+		for (Collectable collectable : coins) {
+        collectable.drawCollectable(g2);}
         score.displayScore(g2);
 	}
 	// player jumps
@@ -119,13 +128,15 @@ public class Component extends JComponent{
     // Checks if there is a collision between the player and the collectable item
     private void itemCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-        Rectangle itemRect = new Rectangle(item1.getX(), item1.getY(), item1.getWidth(), item1.getHeight());
-        
-        if (item1.isVisible() && playerRect.intersects(itemRect)) {
-            item1.pickup();
-            score.updateScore();
-            
-        }
+        for (Collectable collectable : coins) {
+        	 Rectangle itemRect = new Rectangle(collectable.getX(), collectable.getY(), collectable.getWidth(), collectable.getHeight());
+             if (collectable.isVisible() && playerRect.intersects(itemRect)) {
+            	 collectable.pickup();
+                 score.updateScore();
+                 
+             }
+		}
+       
     }
     
     /**
