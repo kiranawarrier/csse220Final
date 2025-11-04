@@ -111,6 +111,7 @@ public class Player {
         }
         catch(Exception ex)
         {System.out.println(" death sound failed");
+        System.out.println("FAILED: " + Player.class.getResource("deathscream.wav"));
         }
 
     }
