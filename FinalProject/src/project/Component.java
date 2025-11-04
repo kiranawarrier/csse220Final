@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle; // Import Rectangle for collision detection
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -162,14 +161,14 @@ public class Component extends JComponent{
      */
     private void enemyCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-        Rectangle enemyRect = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
+        for (Enemy e:E) {
+        Rectangle enemyRect = new Rectangle(e.getX(), e.getY(), e.getWidth(), e.getHeight());
         if (playerRect.intersects(enemyRect)) {
             player.die();
             score.dead();
             System.out.println("You Died");
-        }
+        }}
     }
-
 
 	// timer start and stops
 	public void start() { timer.start(); }     // NEW

@@ -101,7 +101,17 @@ public class Player {
     public void die() {
         x = 10;
         y = 550;
-
+        try{
+            AudioInputStream audioInputStream =
+                AudioSystem.getAudioInputStream(
+                    Player.class.getResource("deathscream.wav"));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        }
+        catch(Exception ex)
+        {System.out.println(" death sound failed");
+        }
 
     }
 
