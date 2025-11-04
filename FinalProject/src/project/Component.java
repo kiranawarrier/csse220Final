@@ -1,221 +1,178 @@
 package project;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle; // Import Rectangle for collision detection
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 /**
  * Main game rendering and update component.
  * Handles drawing game objects, applying gravity, player movement,
  * enemy movement, and maintaining the game loop timer.
  */
 @SuppressWarnings("serial")
-public class Component extends JComponent {
-    public static final int WIDTH = 1920;
-    public static final int HEIGHT = 1080;
-    public static final Color BG = new Color(18, 29, 57);
-    public static final Color FG = new Color(8, 128, 38);
-    public static final int GROUND_Y = 702;
-
-    private final String file = "score.txt";
-
-    Player player = new Player(10, 592);
-    Enemy enemy = new Enemy(1000, 592);
-
-    Timer timer;
-
-    ArrayList<Platform> plats = new ArrayList<>();
-    Platform plat1 = new Platform(1200, 550);
-    Platform plat2 = new Platform(650, 550);
-    ArrayList<Collectable> coins = new ArrayList<>();
-    Collectable item1 = new Collectable(180, 600);
-    Collectable item2 = new Collectable(1000, 400);
-    Collectable item3 = new Collectable(580, 600);
-    Scoreboard score = new Scoreboard();
+public class Component extends JComponent{
+	public static final int WIDTH = 1920;
+	public static final int HEIGHT = 1080;
+	public static final Color BG = new Color(18, 29, 57);
+	public static final Color FG = new Color(8, 128, 38);
+	public static final int GROUND_Y = 702;
+	Player player = new Player(10,592);
+	ArrayList<Enemy> E = new ArrayList<>();
+	Enemy enemy = new Enemy(1000,592,260,0.1);
+	Enemy enemy2 = new Enemy(1260,442,90,0.05);
+	{E.add(enemy);}
+	{E.add(enemy2);}
+	Timer timer;
+	ArrayList<Platform> plats = new ArrayList<>();
+	Platform plat1 = new Platform(1200, 550);
+	Platform plat2 = new Platform(650, 550);
+	{plats.add(plat1);}//throws error when curly brackets removed?
+	{plats.add(plat2);}
+	ArrayList<Collectable> coins = new ArrayList<>();
+	Collectable item = new Collectable(350,300);
+    Collectable item1 = new Collectable(180,600);
+    Collectable item2 = new Collectable(1000,450);
+    Collectable item3 = new Collectable(580,600);
+    {coins.add(item);}
+    {coins.add(item1);}
+    {coins.add(item2);}
+    {coins.add(item3);}
+    Scoreboard score = new Scoreboard(3);
     Panel panel;
     ImageIcon endScreen = new ImageIcon("endScreen.png");
     JLabel endScreenLabel = new JLabel(endScreen);
-
-    {
-        plats.add(plat1);
-    }//throws error when curly brackets removed?
-
-    {
-        plats.add(plat2);
-    }
-
-    {
-        coins.add(item1);
-    }
-
-    {
-        coins.add(item2);
-    }
-
-    {
-        coins.add(item3);
-    }
-
     /**
      * Constructs the main game Component and starts the update timer.
      *
      * @param panel reference to the parent Panel for input state
      */
     public Component(Panel panel) {
-        score.resetScore();
-        this.panel = panel;
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
-        timer = new Timer(20, e -> {
-            if (score.getLives() == 0) {
-                return; //change later to allow restart
-            }
-            if (panel.leftPressed) player.left();
-            if (panel.rightPressed) player.right();
-            if (panel.downPressed) player.fall();
-            enemy.move();
-            int w = 1560;
-            if (player.x > w) {
-                player.x = -35;
-            }
-            if (player.x + 35 < 0) {
-                player.x = w;
-            }
-            player.gravity();
-            player.updateY();
+    	 this.panel = panel;
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		timer = new Timer(20, e -> {
+			if(score.getLives() == 0) {
+				return; //change later to allow restart
+			}
+		    if (panel.leftPressed)  player.left();
+		    if (panel.rightPressed) player.right();
+		    if (panel.downPressed) player.fall();
+		    enemy.move();
+		    enemy2.move();
+		    int w = 1560;
+		    if (player.x > w) {
+		        player.x = -35;
+		    }
+		    if (player.x + 35 < 0) {
+		        player.x = w;
+		    }
+		    player.gravity();
+		    player.updateY();
             if (player.y + player.getHeight() >= GROUND_Y) { // Use getHeight()
                 player.y = GROUND_Y - player.getHeight();    // Use getHeight()
                 player.dy = 0;
             }
             platformCollisions();
-            enemyCollisions();
+		    enemyCollisions();
             if (panel.spacePressed) itemCollisions();
 
-            repaint();
-        });
-        timer.start();
-    }
-
+		    repaint();
+		});
+	    timer.start();
+	}
     /**
      * Draws all game elements to the screen.
      */
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g.setColor(BG);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-        g.setColor(FG);
-        g.fillRect(0, 700, WIDTH, HEIGHT);
-        player.paintPlayer(g2);
-        enemy.drawEnemy(g2);
-        for (Platform plat : plats) {
-            plat.drawPlatform(g2);
-        }
-        for (Collectable collectable : coins) {
-            collectable.drawCollectable(g2);
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		g.setColor(BG);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(FG);
+		g.fillRect(0, 700, WIDTH, HEIGHT);
+		player.paintPlayer(g2);
+		for (Enemy e: E) {
+			e.drawEnemy(g2);
+		}
+		for (Platform plat : plats) {
+			plat.drawPlatform(g2);
+		}
+		for (Collectable collectable : coins) {
+			collectable.drawCollectable(g2);
         }
         score.displayScore(g2);
-    }
-
-    // player jumps
-    public void playerJump() {
-
-        if (player.getY() + player.getHeight() >= GROUND_Y) {
-            player.jump();
-            repaint();
-        }
-        if (player.getX() + player.getWidth() > plat1.getX() && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth()) {
-            player.jump();
-            repaint();
-        }
-
-        if (player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth()) {
-            player.jump();
-            repaint();
-        }
-
-    }
-
-    // player moves left
-    public void playerLeft() {
-        player.left();
-        repaint();
-    }
-
-    // player moves right
-    public void playerRight() {
-        player.right();
-        repaint();
-    }
-
+	}
+	// player jumps
+	public void playerJump() {
+		
+		if(player.getY() + player.getHeight() >= GROUND_Y) {
+			player.jump();
+			repaint();
+		}
+		if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth()) {
+			player.jump();
+			repaint();
+		}
+		if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth()) {
+			player.jump();
+			repaint();
+		}
+		
+	}
+	// player moves left
+	public void playerLeft() {
+		player.left();
+		repaint();
+	}
+	// player moves right
+	public void playerRight() {
+		player.right();
+		repaint();
+	}
     // Checks if there is a collision between the player and the collectable item
     private void itemCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         for (Collectable collectable : coins) {
-            Rectangle itemRect = new Rectangle(collectable.getX(), collectable.getY(), collectable.getWidth(), collectable.getHeight());
-            if (collectable.isVisible() && playerRect.intersects(itemRect)) {
-                collectable.pickup();
-                score.updateScore();
-
-            }
-        }
-
-    }
-
+        	 Rectangle itemRect = new Rectangle(collectable.getX(), collectable.getY(), collectable.getWidth(), collectable.getHeight());
+             if (collectable.isVisible() && playerRect.intersects(itemRect)) {
+            	 collectable.pickup();
+                 score.updateScore();
+                  }} }
     /**
      * creates collisions for the top and bottom edges of the platforms
      */
     private void platformCollisions() {
-        for (Platform plat : plats) {
-            if (player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat.getY() + plat.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
-                player.dy = 0;
-                player.y = plat1.getY() - player.getHeight();
-            } else if (player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
-                player.dy = 0;
-
+    	for(Platform plat : plats) {
+    		if(player.getX() + player.getWidth() > plat.getX()  && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat.getY() + plat.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
+            	player.dy = 0;
+            	player.y = plat1.getY() - player.getHeight();
             }
-        }
-//    	if(player.getX() + player.getWidth() > plat1.getX()  && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat1.getY() + plat1.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
-//        	player.dy = 0;
-//        	player.y = plat1.getY() - player.getHeight();
-//        }
-//        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat2.getY() + plat2.getHeight() && player.getY() + player.getHeight() > plat2.getY()) {
-//        	player.dy = 0;
-//        	player.y = plat2.getY() - player.getHeight();
-//        }
-//        else if(player.getX() + player.getWidth() > plat1.getX() && player.getX() + player.getWidth() < plat1.getX() + plat1.getWidth() + player.getWidth() && player.getY() < plat1.getY() + plat1.getHeight() && player.getY() > plat1.getY()) {
-//        	player.dy = 0;
-//        }
-//        else if(player.getX() + player.getWidth() > plat2.getX() && player.getX() + player.getWidth() < plat2.getX() + plat2.getWidth() + player.getWidth() && player.getY() < plat2.getY() + plat2.getHeight() && player.getY() > plat2.getY()) {
-//        	player.dy = 0;
-//        
-//        }
-
-    }
-
+    		else if(player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
+            	player.dy = 0;
+            }} }
     /**
      * checks if the player model intersects enemy model and kills the player if it is
      */
     private void enemyCollisions() {
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
-        Rectangle enemyRect = new Rectangle(enemy.getX(), enemy.getY(), enemy.getWidth(), enemy.getHeight());
+        for (Enemy e:E) {
+        Rectangle enemyRect = new Rectangle(e.getX(), e.getY(), e.getWidth(), e.getHeight());
         if (playerRect.intersects(enemyRect)) {
             player.die();
             score.dead();
             System.out.println("You Died");
-        }
+        }}
     }
 
-
-    // timer start and stops
-    public void start() {
-        timer.start();
-    }     // NEW
-
-    public void stop() {
-        timer.stop();
-    }      // NEW
-
+	// timer start and stops
+	public void start() { timer.start(); }     // NEW
+    public void stop()  { timer.stop(); }      // NEW
+	
 }
 

@@ -40,8 +40,8 @@ public class Enemy {
      * @param x the initial x-position
      * @param y the initial y-position
      */
-	public Enemy(int x, int y) {
-		this.x = x; this.y = y;
+	public Enemy(int x, int y, int roamRange, double roamSpeed) {
+		this.x = x; this.y = y; this.roamRange = roamRange; this.roamSpeed = roamSpeed;
 		this.homeX = x; 
 		try {
 			sprite = ImageIO.read(Enemy.class.getResource("enemyV2.png"));
