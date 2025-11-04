@@ -99,8 +99,6 @@ public class Player {
 
     // starting logic for resetting on death
     public void die() {
-        x = 10;
-        y = 550;
         try{
             AudioInputStream audioInputStream =
                 AudioSystem.getAudioInputStream(
@@ -108,11 +106,13 @@ public class Player {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
+            System.out.println("clip should play here");
         }
-        catch(Exception ex)
-        {System.out.println(" death sound failed");
+        catch(Exception ex) {
         System.out.println("FAILED: " + Player.class.getResource("deathscream.wav"));
         }
+        x = 10;
+        y = 550;
 
     }
 
