@@ -7,7 +7,6 @@ import java.util.Scanner;
 /**
  * Represents the scoreboard that displays and saves the player's score and lives.
  */
-
 public class Scoreboard {
 
     private final String file = "score.txt";
@@ -57,8 +56,13 @@ public class Scoreboard {
             System.err.println("Write error: " + e.getMessage());
         }
     }
+
+    /**
+     * Gets the current score.
+     * @return the current score
+     */
     public int getScore() {
-    	return this.score;
+        return this.score;
     }
 
     /**
@@ -154,7 +158,6 @@ public class Scoreboard {
     /**
      * Resets the score to 0 and lives to 3.
      */
-
     public void resetScore() {
         this.score = 0;
         this.livesLeft = 3;
@@ -163,9 +166,9 @@ public class Scoreboard {
 
     /**
      * Gets the high score.
+     *
      * @return the high score
      */
-
     public int getHighScore() {
         return this.highScore;
     }
@@ -173,7 +176,6 @@ public class Scoreboard {
     /**
      * Resets the high score to 0.
      */
-
     public void resetHighScore() {
         this.highScore = 0;
         saveState();
