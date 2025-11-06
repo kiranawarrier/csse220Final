@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle; // Import Rectangle for collision detection
 import java.util.ArrayList;
-
 import javax.swing.JComponent;
 import javax.swing.Timer;
 /**
@@ -71,6 +70,18 @@ public class Component extends JComponent{
 					}
 				}
 				//return; //change later to allow restart
+			}
+			if (score.getScore() == 4) {
+				score.resetScore();
+				player.die();
+				// TEMPORARY CODE FOR WHEN SCORE IS MAX
+				if (panel.nextlvl) {System.out.println("next level");
+				
+				}
+				if (panel.restart) { System.out.println("restart");
+				 
+				}
+				
 			}
 		    if (panel.leftPressed)  player.left();
 		    if (panel.rightPressed) player.right();

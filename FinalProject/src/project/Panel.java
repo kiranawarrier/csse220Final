@@ -1,5 +1,6 @@
 package project;
 
+import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,6 +21,9 @@ public class Panel extends JPanel {
     boolean downPressed = false;
     boolean spacePressed = false;
     boolean h_pressed = false;
+    boolean restart = false;
+    boolean nextlvl = false;
+    
     // The main game rendering and update component. 
     private final Component canvas = new Component(this);
     /**
@@ -31,17 +35,18 @@ public class Panel extends JPanel {
 		add(canvas, java.awt.BorderLayout.CENTER);
 		this.add(canvas);
 		this.buildKeys();
-		this.buildControls();
+		this.add(buildControls(), BorderLayout.SOUTH);
 		// Key listener for controlling player movement
 		
 	}
+	
 	private JComponent buildControls() {
 		JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 6));
         JButton left = new JButton("restart");
         JButton right = new JButton("level 2");
 
-        left.addActionListener(e -> {  });
-        right.addActionListener(e -> { });
+        left.addActionListener(e ->  restart = true );
+        right.addActionListener(e -> nextlvl = true );
        
         controls.add(left);
         controls.add(right);
