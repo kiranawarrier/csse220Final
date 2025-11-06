@@ -27,7 +27,7 @@ public class Component extends JComponent{
 	ArrayList<Platform> plats = new ArrayList<>();
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
-	{plats.add(plat1);}//throws error when curly brackets removed?
+	{plats.add(plat1);} //throws error when curly brackets removed?
 	{plats.add(plat2);}
 	ArrayList<Collectable> coins = new ArrayList<>();
 	Collectable item = new Collectable(350,300);
@@ -40,9 +40,7 @@ public class Component extends JComponent{
     {coins.add(item3);}
     Scoreboard score = new Scoreboard();
     Panel panel;
-    
     int time = 0; // used to time when to restart game 
-    
     Screen screen = new Screen();
     /**
      * Constructs the main game Component and starts the update timer.
@@ -53,7 +51,11 @@ public class Component extends JComponent{
     	this.panel = panel;
         score.resetScore();
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		timer = new Timer(20, e -> {
+		timer = new Timer(20, e -> tick()); 
+	    timer.start();
+	}
+    
+    private void tick() {
 			if(score.getLives() == 0) {
 				if(time < 3000) {
 					time += 20;
@@ -90,11 +92,12 @@ public class Component extends JComponent{
             platformCollisions();
 		    enemyCollisions();
             if (panel.spacePressed) itemCollisions();
-
 		    repaint();
-		});
-	    timer.start();
-	}
+
+            if (panel.h_pressed){
+                score.resetHighScore();
+            }}
+    
     /**
      * Draws all game elements to the screen.
      */
@@ -114,7 +117,7 @@ public class Component extends JComponent{
 			collectable.drawCollectable(g2);
         }
         score.displayScore(g2);
-        if(time > 0 && time < 1000) {
+        if((time > 0 && time < 1000) ) {
         	screen.displayEndScreen(g2, 3);
         }else if (time > 0 && time < 2000) {
         	screen.displayEndScreen(g2, 2);

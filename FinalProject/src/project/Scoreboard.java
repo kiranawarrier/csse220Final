@@ -7,7 +7,6 @@ import java.util.Scanner;
 /**
  * Represents the scoreboard that displays and saves the player's score and lives.
  */
-
 public class Scoreboard {
 
     private final String file = "score.txt";
@@ -39,7 +38,6 @@ public class Scoreboard {
             gameFont1 = baseFont.deriveFont(Font.BOLD, 24f);
         } catch (IOException | FontFormatException e) {
             System.err.println("Custom font failed to load. Using fallback.");
-            e.printStackTrace();
             gameFont1 = new Font("Monospaced", Font.BOLD, 24);
         }
         this.gameFont = gameFont1;
@@ -57,6 +55,14 @@ public class Scoreboard {
         } catch (IOException e) {
             System.err.println("Write error: " + e.getMessage());
         }
+    }
+
+    /**
+     * Gets the current score.
+     * @return the current score
+     */
+    public int getScore() {
+        return this.score;
     }
 
     /**
@@ -93,7 +99,6 @@ public class Scoreboard {
      * @param g2
      */
     public void displayScore(Graphics2D g2) {
-
         g2.setFont(this.gameFont);
         g2.setColor(Color.WHITE);
         g2.drawString("Score: " + this.score, 20, 30);
@@ -153,7 +158,6 @@ public class Scoreboard {
     /**
      * Resets the score to 0 and lives to 3.
      */
-
     public void resetScore() {
         this.score = 0;
         this.livesLeft = 3;
@@ -162,10 +166,18 @@ public class Scoreboard {
 
     /**
      * Gets the high score.
+     *
      * @return the high score
      */
-
     public int getHighScore() {
         return this.highScore;
+    }
+
+    /**
+     * Resets the high score to 0.
+     */
+    public void resetHighScore() {
+        this.highScore = 0;
+        saveState();
     }
 }
