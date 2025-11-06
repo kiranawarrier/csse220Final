@@ -42,6 +42,7 @@ public class Component extends JComponent{
     Panel panel;
     int time = 0; // used to time when to restart game 
     Screen screen = new Screen();
+    
     /**
      * Constructs the main game Component and starts the update timer.
      *

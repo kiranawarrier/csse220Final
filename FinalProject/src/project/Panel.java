@@ -1,8 +1,11 @@
 package project;
 
+import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 /**
  * The Panel class acts as a container for the game canvas and manages
@@ -27,7 +30,24 @@ public class Panel extends JPanel {
 		setLayout(new java.awt.BorderLayout());
 		add(canvas, java.awt.BorderLayout.CENTER);
 		this.add(canvas);
+		this.buildKeys();
+		this.buildControls();
 		// Key listener for controlling player movement
+		
+	}
+	private JComponent buildControls() {
+		JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 6));
+        JButton left = new JButton("restart");
+        JButton right = new JButton("level 2");
+
+        left.addActionListener(e -> {  });
+        right.addActionListener(e -> { });
+       
+        controls.add(left);
+        controls.add(right);
+        return controls;
+    }
+	private void buildKeys() {
 		canvas.addKeyListener(new KeyAdapter() {
 		    @Override
 		    public void keyPressed(KeyEvent e) {
@@ -51,6 +71,7 @@ public class Panel extends JPanel {
 		        }
 		    }
 		});
+		
 	}
 	//Ensures the canvas is ready to receive keyboard input once displayed.
 	@Override
