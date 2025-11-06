@@ -54,7 +54,7 @@ public class Component extends JComponent{
         score.resetScore();
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		timer = new Timer(20, e -> {
-			if(score.getLives() == 0) {
+			if(score.getLives() == 0 || score.getScore() == 4) {
 				if(time < 3000) {
 					time += 20;
 				}
@@ -87,7 +87,6 @@ public class Component extends JComponent{
             platformCollisions();
 		    enemyCollisions();
             if (panel.spacePressed) itemCollisions();
-
 		    repaint();
 		});
 	    timer.start();
@@ -111,7 +110,7 @@ public class Component extends JComponent{
 			collectable.drawCollectable(g2);
         }
         score.displayScore(g2);
-        if(time > 0 && time < 1000) {
+        if((time > 0 && time < 1000) ) {
         	screen.displayEndScreen(g2, 3);
         }else if (time > 0 && time < 2000) {
         	screen.displayEndScreen(g2, 2);

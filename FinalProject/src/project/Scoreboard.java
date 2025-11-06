@@ -57,6 +57,9 @@ public class Scoreboard {
             System.err.println("Write error: " + e.getMessage());
         }
     }
+    public int getScore() {
+    	return this.score;
+    }
 
     /**
      * Increments the score by 1 and saves the new state.
