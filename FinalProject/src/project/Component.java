@@ -91,6 +91,10 @@ public class Component extends JComponent{
 		    enemyCollisions();
             if (panel.spacePressed) itemCollisions();
 		    repaint();
+
+            if (panel.h_pressed){
+                score.resetHighScore();
+            }
 		});
 	    timer.start();
 	}

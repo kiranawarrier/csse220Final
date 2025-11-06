@@ -16,6 +16,7 @@ public class Panel extends JPanel {
     boolean rightPressed = false;
     boolean downPressed = false;
     boolean spacePressed = false;
+    boolean h_pressed = false;
     // The main game rendering and update component. 
     private final Component canvas = new Component(this);
     /**
@@ -36,6 +37,7 @@ public class Panel extends JPanel {
 		            case KeyEvent.VK_UP    -> canvas.playerJump();
 		            case KeyEvent.VK_DOWN  -> downPressed = true;
 		            case KeyEvent.VK_SPACE -> spacePressed = true;
+                    case KeyEvent.VK_H -> h_pressed = true;
 		        }
 		    }
 		    @Override
@@ -45,6 +47,7 @@ public class Panel extends JPanel {
 		            case KeyEvent.VK_RIGHT -> rightPressed = false;
 		            case KeyEvent.VK_DOWN  -> downPressed = false;
 		            case KeyEvent.VK_SPACE -> spacePressed = false;
+                    case KeyEvent.VK_H -> h_pressed = false;
 		        }
 		    }
 		});
