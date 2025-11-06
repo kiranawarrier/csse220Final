@@ -5,6 +5,8 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import javax.swing.JComponent;
+import javax.swing.Timer;
 
 /**
  * Main game rendering and update component.
@@ -36,7 +38,7 @@ public class Component extends JComponent {
      * @param panel reference to the parent Panel for input state
      */
     public Component(Panel panel) {
-        this.panel = panel;
+    	this.panel = panel;
         score.resetScore();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
@@ -57,44 +59,55 @@ public class Component extends JComponent {
     }
 
     private void tick() {
-        if (score.getLives() == 0) {
-            if (time < 3000) {
-                time += 20;
-            } else {
-                time = 0;
-                score.resetScore();
-                player.x = 10;
-                player.y = 550;
-                for (Collectable coin : coins) {
-                    coin.setVisible(true);
-                }
+			if(score.getLives() == 0) {
+				if(time < 3000) {
+					time += 20;
+				}
+				else {
+					time = 0;
+					score.resetScore();
+					player.x = 10;
+					player.y = 550;
+					for(Collectable coin : coins) {
+						coin.setVisible(true);
+					}
+				}
+				//return; //change later to allow restart
+			}
+			if (score.getScore() == 4) {
+				score.resetScore();
+				player.die();
+				// TEMPORARY CODE FOR WHEN SCORE IS MAX
+				if (panel.nextlvl) {System.out.println("next level");
+
+				}
+				if (panel.restart) { System.out.println("restart");
+
+				}
+
+			}
+		    if (panel.leftPressed)  player.left();
+		    if (panel.rightPressed) player.right();
+		    if (panel.downPressed) player.fall();
+		    enemy.move();
+		    enemy2.move();
+		    int w = 1500;
+		    if (player.x > w) {
+		        player.x = -35;
+		    }
+		    if (player.x + 35 < 0) {
+		        player.x = w;
+		    }
+		    player.gravity();
+		    player.updateY();
+            if (player.y + player.getHeight() >= GROUND_Y) { // Use getHeight()
+                player.y = GROUND_Y - player.getHeight();    // Use getHeight()
+                player.dy = 0;
             }
-        }
-        if (panel.leftPressed) player.left();
-        if (panel.rightPressed) player.right();
-        if (panel.downPressed) player.fall();
-
-        for (Enemy en : E) {
-            en.move();
-        }
-
-        int w = 1500;
-        if (player.x > w) {
-            player.x = -35;
-        }
-        if (player.x + 35 < 0) {
-            player.x = w;
-        }
-        player.gravity();
-        player.updateY();
-        if (player.y + player.getHeight() >= GROUND_Y) {
-            player.y = GROUND_Y - player.getHeight();
-            player.dy = 0;
-        }
-        platformCollisions();
-        enemyCollisions();
-        if (panel.spacePressed) itemCollisions();
-        repaint();
+            platformCollisions();
+		    enemyCollisions();
+            if (panel.spacePressed) itemCollisions();
+		    repaint();
 
         if (panel.h_pressed) {
             score.resetHighScore();
@@ -159,7 +172,6 @@ public class Component extends JComponent {
             }
         }
     }
-
     /**
      * creates collisions for the top and bottom edges of the platforms
      */
