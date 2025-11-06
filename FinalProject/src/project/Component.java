@@ -50,8 +50,8 @@ public class Component extends JComponent{
      * @param panel reference to the parent Panel for input state
      */
     public Component(Panel panel) {
-    	 this.panel = panel;
-         score.resetScore();
+    	this.panel = panel;
+        score.resetScore();
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		timer = new Timer(20, e -> {
 			if(score.getLives() == 0) {
@@ -161,13 +161,21 @@ public class Component extends JComponent{
      */
     private void platformCollisions() {
     	for(Platform plat : plats) {
-    		if(player.getX() + player.getWidth() > plat.getX()  && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat.getY() + plat.getHeight() && player.getY() + player.getHeight() > plat1.getY()) {
+    		if(player.getX() + player.getWidth() > plat.getX() 
+    				&& player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() 
+    				&& player.getY() + player.getHeight() < plat.getY() + plat.getHeight() 
+    				&& player.getY() + player.getHeight() > plat1.getY()) {
             	player.dy = 0;
             	player.y = plat1.getY() - player.getHeight();
             }
-    		else if(player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
-
-            	player.dy = 0;}}}
+    		else if(player.getX() + player.getWidth() > plat.getX() 
+    				&& player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() 
+    				&& player.getY() < plat.getY() + plat.getHeight() 
+    				&& player.getY() > plat.getY()) {
+            	player.dy = 0;
+            }
+    	}
+    }
 
             	
     	
