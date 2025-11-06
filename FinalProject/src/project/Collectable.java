@@ -126,4 +126,13 @@ public class Collectable {
         return isVisible;
     }
 
+    /**
+     * Sets the visibility of the sprite.
+     * @param visible
+     */
+
+    public void setVisible(boolean visible) {
+        this.isVisible = visible;
+    }
+
 }
