@@ -14,6 +14,7 @@ public class Scoreboard {
     private final Font gameFont;
     private int score; // ERROR 1: This was missing
     private int livesLeft;
+    private int highScore;
 
     /**
      * Default constructor.
@@ -66,6 +67,9 @@ public class Scoreboard {
      */
     public void updateScore() {
         this.score++; // Use 'this.score'
+        if (this.score > this.highScore) {
+            this.highScore = this.score;
+        }
         saveState(); // Save changes to the file
     }
 
@@ -97,13 +101,14 @@ public class Scoreboard {
         g2.setColor(Color.WHITE);
         g2.drawString("Score: " + this.score, 20, 30);
         g2.drawString("Lives: " + this.livesLeft, 20, 60);
+        g2.drawString("High Score: " + this.highScore, 20, 90);
     }
 
     /**
      * Saves the current score and lives to the file.
      */
     private void saveState() {
-        writeLine(this.file, this.score + " " + this.livesLeft);
+        writeLine(this.file, this.score + " " + this.livesLeft + " " + this.highScore);
     }
 
     /**
@@ -116,6 +121,7 @@ public class Scoreboard {
         if (!f.exists()) {
             this.score = 0;
             this.livesLeft = 3;
+            this.highScore = 0;
             saveState();
             return;
         }
@@ -131,10 +137,19 @@ public class Scoreboard {
             } else {
                 this.livesLeft = 3;
             }
+            if (scanner.hasNextInt()) {
+                this.highScore = scanner.nextInt();
+            } else {
+                this.highScore = 0;
+            }
+            saveState();
+
         } catch (IOException e) {
             System.err.println("Read error: " + e.getMessage());
             this.score = 0;
             this.livesLeft = 3;
+            this.highScore = 0;
+            saveState();
         }
     }
 
@@ -146,5 +161,14 @@ public class Scoreboard {
         this.score = 0;
         this.livesLeft = 3;
         saveState();
+    }
+
+    /**
+     * Gets the high score.
+     * @return the high score
+     */
+
+    public int getHighScore() {
+        return this.highScore;
     }
 }
