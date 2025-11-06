@@ -20,7 +20,7 @@ public class Component extends JComponent{
 	Player player = new Player(10,592);
 	ArrayList<Enemy> E = new ArrayList<>();
 	Enemy enemy = new Enemy(1000,592,260,0.1);
-	Enemy enemy2 = new Enemy(1260,442,90,0.05);
+	Enemy enemy2 = new Enemy(1260,439,90,0.05);
 	{E.add(enemy);}
 	{E.add(enemy2);}
 	Timer timer;
