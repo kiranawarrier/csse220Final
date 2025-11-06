@@ -13,9 +13,5 @@ public class Level {
     public List<String> getRows() {
         return rows;
     }
-    // you can add helpers: getWidth(), getHeight(), charAt(row,col)…
-
-
-
 }
 
