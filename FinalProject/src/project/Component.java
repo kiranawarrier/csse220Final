@@ -27,7 +27,7 @@ public class Component extends JComponent{
 	ArrayList<Platform> plats = new ArrayList<>();
 	Platform plat1 = new Platform(1200, 550);
 	Platform plat2 = new Platform(650, 550);
-	{plats.add(plat1);}//throws error when curly brackets removed?
+	{plats.add(plat1);} //throws error when curly brackets removed?
 	{plats.add(plat2);}
 	ArrayList<Collectable> coins = new ArrayList<>();
 	Collectable item = new Collectable(350,300);
@@ -54,7 +54,8 @@ public class Component extends JComponent{
         score.resetScore();
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		timer = new Timer(20, e -> {
-			if(score.getLives() == 0 || score.getScore() == 4) {
+			
+			if(score.getLives() == 0) {
 				if(time < 3000) {
 					time += 20;
 				}
