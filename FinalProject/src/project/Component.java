@@ -63,6 +63,9 @@ public class Component extends JComponent{
 					score.resetScore();
 					player.x = 10;
 					player.y = 550;
+					for(Collectable coin : coins) {
+						coin.setVisible(true);
+					}
 				}
 				//return; //change later to allow restart
 			}
@@ -116,7 +119,7 @@ public class Component extends JComponent{
         }else if (time > 0 && time < 2000) {
         	screen.displayEndScreen(g2, 2);
         }
-        else if(time  > 0 && time < 3000) {
+        else if(time > 0 && time < 3000) {
         	screen.displayEndScreen(g2, 1);
         }
 	}
@@ -155,7 +158,9 @@ public class Component extends JComponent{
              if (collectable.isVisible() && playerRect.intersects(itemRect)) {
             	 collectable.pickup();
                  score.updateScore();
-                  }} }
+             }
+        }
+    }
     /**
      * creates collisions for the top and bottom edges of the platforms
      */
