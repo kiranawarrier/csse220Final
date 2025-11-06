@@ -10,3 +10,4 @@ target/
 .DS_Store
 FinalProject/score.txt
 FinalProject/score.txt
+*.txt
