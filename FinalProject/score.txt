@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-4 1
-=======
-1 0
->>>>>>> branch 'main' of https://github.com/kiranawarrier/csse220Final.git
+4 2 4
