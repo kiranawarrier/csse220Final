@@ -11,10 +11,13 @@ import java.util.ArrayList;
 
 public class Component extends JComponent {
 
+    private static final int maxLevel = 2;
     private int WIDTH = 1500, HEIGHT = 1080;
     public static final int GROUND_Y = 702;
+    int target = 0;
     int time = 0;
     int currentLevel = 1;
+    int totalCoinsInLevel = 0;
     boolean isLevelComplete = false;
 
     Timer timer;
@@ -35,8 +38,9 @@ public class Component extends JComponent {
      */
     public Component(Panel panel) {
         this.panel = panel;
-        score.resetScore();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        this.target = coins.size();
+        score.resetScore();
 
         timer = new Timer(20, e -> tick());
 
@@ -45,7 +49,7 @@ public class Component extends JComponent {
             loadLevel(levelPath);
 
         } catch (RuntimeException e) {
-            System.err.println("Failed to load initial level:");
+            System.err.println("Failed to load level:");
             timer.stop();
         }
 
@@ -53,15 +57,18 @@ public class Component extends JComponent {
     }
 
     private void tick() {
-        if (currentLevel == 3){
-            System.exit(0);
-        }
 
         if (isLevelComplete) {
             if (panel.nextlvl) {
-                currentLevel++;
-                String nextLevel = "resources/levels/level" + currentLevel + ".txt";
-                loadLevel(nextLevel);
+                if (currentLevel <= maxLevel) {
+                    currentLevel++;
+                    String nextLevel = "resources/levels/level" + currentLevel + ".txt";
+                    loadLevel(nextLevel);
+                } else {
+                    System.out.println("Congrats!, you have completed the game!!!");
+                    System.exit(0);
+                }
+
             } else if (panel.restart) {
                 System.out.println("restart");
                 loadLevel("resources/levels/level" + currentLevel + ".txt");
@@ -78,7 +85,7 @@ public class Component extends JComponent {
         } else if (player != null) {
             if (panel.spacePressed) itemCollisions();
 
-            if (!coins.isEmpty() && score.getScore() == coins.size()) {
+            if (score.getScore() >= totalCoinsInLevel && totalCoinsInLevel > 0) {
                 isLevelComplete = true;
             } else {
                 if (panel.leftPressed) player.left();
@@ -195,6 +202,7 @@ public class Component extends JComponent {
         for (Enemy e : E) {
             Rectangle enemyRect = new Rectangle(e.getX(), e.getY(), e.getWidth(), e.getHeight());
             if (playerRect.intersects(enemyRect)) {
+                totalCoinsInLevel--;
                 player.die();
                 score.decrementScore();
                 score.dead();
@@ -205,6 +213,7 @@ public class Component extends JComponent {
 
     /**
      * Loads a new level from a file.
+     *
      * @param levelFilename
      */
     private void loadLevel(String levelFilename) {
@@ -217,6 +226,7 @@ public class Component extends JComponent {
             this.coins = newLevel.getCoins();
             this.WIDTH = newLevel.getWidth();
             this.HEIGHT = newLevel.getHeight();
+            this.totalCoinsInLevel = this.coins.size();
 
             this.score.resetScore();
 

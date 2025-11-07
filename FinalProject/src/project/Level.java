@@ -15,9 +15,9 @@ public class Level {
 
     int WIDTH = 1500, HEIGHT = 1080;
 
-
     /**
      * Loads a level from a list of strings. (Level Constructor)
+     *
      * @param rows
      */
     public Level(List<String> rows) {
@@ -26,7 +26,9 @@ public class Level {
             if (line.isEmpty() || line.startsWith("#")) continue;
 
             String[] t = line.split("\\s+");
-            switch (t[0]) {
+            String token = t[0];
+
+            switch (token) {
                 case "PLAYER" -> {
                     int x1 = Integer.parseInt(t[1]);
                     int y1 = Integer.parseInt(t[2]);
@@ -36,27 +38,28 @@ public class Level {
                     WIDTH = Integer.parseInt(t[1]);
                     HEIGHT = Integer.parseInt(t[2]);
                 }
-                case "ENEMY1", "ENEMY2" -> {
-                    int x1 = Integer.parseInt(t[1]);
-                    int y1 = Integer.parseInt(t[2]);
-                    int roamRange1 = Integer.parseInt(t[3]);
-                    double roamSpeed1 = Double.parseDouble(t[4]);
-                    E.add(new Enemy(x1, y1, roamRange1, roamSpeed1));
+                default -> {
+                    if (token.startsWith("PLATFORM")) {
+                        int x1 = Integer.parseInt(t[1]);
+                        int y1 = Integer.parseInt(t[2]);
+                        plats.add(new Platform(x1, y1));
+                    } else if (token.startsWith("ITEM")) {
+                        int x1 = Integer.parseInt(t[1]);
+                        int y1 = Integer.parseInt(t[2]);
+                        coins.add(new Collectable(x1, y1));
+                    } else if (token.startsWith("ENEMY")) {
+                        int x1 = Integer.parseInt(t[1]);
+                        int y1 = Integer.parseInt(t[2]);
+                        int roamRange1 = Integer.parseInt(t[3]);
+                        double roamSpeed1 = Double.parseDouble(t[4]);
+                        E.add(new Enemy(x1, y1, roamRange1, roamSpeed1));
+
+                    } else {
+                        System.err.println("Unknown token: " + token);
+                    }
                 }
-                case "PLATFORM1", "PLATFORM2" -> {
-                    int x1 = Integer.parseInt(t[1]);
-                    int y1 = Integer.parseInt(t[2]);
-                    plats.add(new Platform(x1, y1));
-                }
-                case "ITEM1", "ITEM2", "ITEM3", "ITEM4" -> {
-                    int x1 = Integer.parseInt(t[1]);
-                    int y1 = Integer.parseInt(t[2]);
-                    coins.add(new Collectable(x1, y1));
-                }
-                default -> System.err.println("Unknown token: " + t[0]);
             }
         }
-
     }
 
     public Player getPlayer() {
