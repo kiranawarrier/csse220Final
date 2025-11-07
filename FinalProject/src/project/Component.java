@@ -14,7 +14,6 @@ public class Component extends JComponent {
     private static final int maxLevel = 2;
     private int WIDTH = 1500, HEIGHT = 1080;
     public static final int GROUND_Y = 702;
-    int target = 0;
     int time = 0;
     int currentLevel = 1;
     int totalCoinsInLevel = 0;
@@ -39,7 +38,6 @@ public class Component extends JComponent {
     public Component(Panel panel) {
         this.panel = panel;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        this.target = coins.size();
         score.resetScore();
 
         timer = new Timer(20, e -> tick());
