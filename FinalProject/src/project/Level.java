@@ -7,10 +7,12 @@ import java.util.List;
  * This class represents a level loaded from a text file.
  */
 public class Level {
+
     Player player;
     ArrayList<Enemy> E = new ArrayList<>();
     ArrayList<Platform> plats = new ArrayList<>();
     ArrayList<Collectable> coins = new ArrayList<>();
+
     int WIDTH = 1500, HEIGHT = 1080;
 
 

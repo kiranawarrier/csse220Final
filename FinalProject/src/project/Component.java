@@ -3,8 +3,6 @@ package project;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import javax.swing.JComponent;
-import javax.swing.Timer;
 
 /**
  * The class that draws the game
@@ -17,13 +15,12 @@ public class Component extends JComponent {
     public static final int GROUND_Y = 702;
     int time = 0;
     int currentLevel = 1;
-
     boolean isLevelComplete = false;
 
     Timer timer;
     Panel panel;
-
     Player player;
+
     ArrayList<Enemy> E = new ArrayList<>();
     ArrayList<Platform> plats = new ArrayList<>();
     ArrayList<Collectable> coins = new ArrayList<>();
@@ -49,7 +46,6 @@ public class Component extends JComponent {
 
         } catch (RuntimeException e) {
             System.err.println("Failed to load initial level:");
-            e.printStackTrace();
             timer.stop();
         }
 
@@ -62,63 +58,56 @@ public class Component extends JComponent {
                 currentLevel++;
                 String nextLevel = "resources/levels/level" + currentLevel + ".txt";
                 loadLevel(nextLevel);
-            }
-            if (panel.restart) {
+            } else if (panel.restart) {
                 System.out.println("restart");
                 loadLevel("resources/levels/level" + currentLevel + ".txt");
             }
-            return;
-        }
 
-        if(score.getLives() == 0) {
-            if(time < 3000) {
+        } else if (score.getLives() == 0) {
+            if (time < 3000) {
                 time += 20;
-            }
-            else {
+            } else {
                 time = 0;
-                loadLevel("resources/levels/level" + currentLevel + ".txt");
+                loadLevel("resources/levels/level" + currentLevel + ".txt"); // Reload level
             }
-            return;
-        }
 
-        if (player == null) return;
+        } else if (player != null) {
+            if (panel.spacePressed) itemCollisions();
 
-        if (!coins.isEmpty() && score.getScore() == coins.size()) {
-            player.die();
+            if (!coins.isEmpty() && score.getScore() == coins.size()) {
+                player.die();
+                isLevelComplete = true;
+            } else {
+                if (panel.leftPressed) player.left();
+                if (panel.rightPressed) player.right();
+                if (panel.downPressed) player.fall();
 
-            isLevelComplete = true;
-            return;
-        }
+                for (Enemy en : E) {
+                    en.move();
+                }
 
-        if (panel.leftPressed)  player.left();
-        if (panel.rightPressed) player.right();
-        if (panel.downPressed) player.fall();
+                int w = 1500;
+                if (player.x > w) {
+                    player.x = -35;
+                }
+                if (player.x + 35 < 0) {
+                    player.x = w;
+                }
+                player.gravity();
+                player.updateY();
+                if (player.y + player.getHeight() >= GROUND_Y) {
+                    player.y = GROUND_Y - player.getHeight();
+                    player.dy = 0;
+                }
+                platformCollisions();
+                enemyCollisions();
 
-        for (Enemy en : E) {
-            en.move();
+                if (panel.h_pressed) {
+                    score.resetHighScore();
+                }
+            }
         }
-
-        int w = 1500;
-        if (player.x > w) {
-            player.x = -35;
-        }
-        if (player.x + 35 < 0) {
-            player.x = w;
-        }
-        player.gravity();
-        player.updateY();
-        if (player.y + player.getHeight() >= GROUND_Y) {
-            player.y = GROUND_Y - player.getHeight();
-            player.dy = 0;
-        }
-        platformCollisions();
-        enemyCollisions();
-        if (panel.spacePressed) itemCollisions();
         repaint();
-
-        if (panel.h_pressed) {
-            score.resetHighScore();
-        }
     }
 
     /**
@@ -133,7 +122,6 @@ public class Component extends JComponent {
         if (player != null) {
             player.paintPlayer(g2);
         }
-
         for (Enemy e : E) {
             e.drawEnemy(g2);
         }
@@ -144,27 +132,24 @@ public class Component extends JComponent {
             collectable.drawCollectable(g2);
         }
         score.displayScore(g2);
-        if ((time > 0 && time < 1000)) {
-            screen.displayEndScreen(g2, 3);
-        } else if (time > 0 && time < 2000) {
-            screen.displayEndScreen(g2, 2);
-        } else if (time > 0 && time < 3000) {
-            screen.displayEndScreen(g2, 1);
+
+        if (isLevelComplete) { // Add a Level complete screen here
+            currentLevel++;
+            loadLevel("resources/levels/level" + currentLevel + ".txt");
+
+        } else if (score.getLives() == 0) {
+            if ((time > 0 && time < 1000)) {
+                screen.displayEndScreen(g2, 3);
+            } else if (time > 0 && time < 2000) {
+                screen.displayEndScreen(g2, 2);
+            } else if (time > 0 && time < 3000) {
+                screen.displayEndScreen(g2, 1);
+            }
         }
     }
 
     public void playerJump() {
         if (player != null) player.jump();
-        repaint();
-    }
-
-    public void playerLeft() {
-        if (player != null) player.left();
-        repaint();
-    }
-
-    public void playerRight() {
-        if (player != null) player.right();
         repaint();
     }
 
@@ -182,6 +167,7 @@ public class Component extends JComponent {
             }
         }
     }
+
     /**
      * creates collisions for the top and bottom edges of the platforms
      */
@@ -196,7 +182,6 @@ public class Component extends JComponent {
             }
         }
     }
-
 
     /**
      * checks if the player model intersects enemy model and kills the player if it is
@@ -215,8 +200,8 @@ public class Component extends JComponent {
     }
 
     /**
-     * NEW: This method is now responsible for loading a level
-     * and setting all the game's objects.
+     * Loads a new level from a file.
+     * @param levelFilename
      */
     private void loadLevel(String levelFilename) {
         try {
@@ -238,7 +223,6 @@ public class Component extends JComponent {
 
         } catch (RuntimeException e) {
             System.err.println("Failed to load level " + levelFilename + ": " + e.getMessage());
-            e.printStackTrace();
             if (timer != null) {
                 timer.stop();
             }
@@ -247,7 +231,7 @@ public class Component extends JComponent {
 
     public void start() {
         timer.start();
-    }     // NEW
+    }
 
     public void stop() {
         timer.stop();

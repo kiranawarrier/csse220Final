@@ -9,6 +9,7 @@ import java.util.List;
 import java.nio.charset.StandardCharsets;
 
 public class LevelIO {
+
     /**
      * Reads a text file as a resource, collects each non-blank line into a List,
      * then constructs and returns a Level.
