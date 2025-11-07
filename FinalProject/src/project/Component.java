@@ -2,16 +2,12 @@ package project;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.Timer;
 
 /**
- * Main game rendering and update component.
- * Handles drawing game objects, applying gravity, player movement,
- * enemy movement, and maintaining the game loop timer.
+ * The class that draws the game
  */
 @SuppressWarnings("serial")
 
@@ -19,7 +15,10 @@ public class Component extends JComponent {
 
     private int WIDTH = 1500, HEIGHT = 1080;
     public static final int GROUND_Y = 702;
-    int time = 0; // used to time when to restart game
+    int time = 0;
+    int currentLevel = 1;
+
+    boolean isLevelComplete = false;
 
     Timer timer;
     Panel panel;
@@ -38,76 +37,84 @@ public class Component extends JComponent {
      * @param panel reference to the parent Panel for input state
      */
     public Component(Panel panel) {
-    	this.panel = panel;
+        this.panel = panel;
         score.resetScore();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        try {
+        timer = new Timer(20, e -> tick());
 
-            InputStream is = Component.class.getResourceAsStream("resources/levels/level1.txt");
-            if (is == null) {
-                throw new IOException("Level file not found!");
-            }
-            parseLevel(is, "level1.txt");
-        } catch (IOException e) {
-            System.err.println("Failed to load level:");
+        try {
+            String levelPath = "resources/levels/level" + currentLevel + ".txt";
+            loadLevel(levelPath);
+
+        } catch (RuntimeException e) {
+            System.err.println("Failed to load initial level:");
             e.printStackTrace();
+            timer.stop();
         }
 
-        timer = new Timer(20, e -> tick());
         timer.start();
     }
 
     private void tick() {
-			if(score.getLives() == 0) {
-				if(time < 3000) {
-					time += 20;
-				}
-				else {
-					time = 0;
-					score.resetScore();
-					player.x = 10;
-					player.y = 550;
-					for(Collectable coin : coins) {
-						coin.setVisible(true);
-					}
-				}
-				//return; //change later to allow restart
-			}
-			if (score.getScore() == 4) {
-				score.resetScore();
-				player.die();
-				// TEMPORARY CODE FOR WHEN SCORE IS MAX
-				if (panel.nextlvl) {System.out.println("next level");
-
-				}
-				if (panel.restart) { System.out.println("restart");
-
-				}
-
-			}
-		    if (panel.leftPressed)  player.left();
-		    if (panel.rightPressed) player.right();
-		    if (panel.downPressed) player.fall();
-		    enemy.move();
-		    enemy2.move();
-		    int w = 1500;
-		    if (player.x > w) {
-		        player.x = -35;
-		    }
-		    if (player.x + 35 < 0) {
-		        player.x = w;
-		    }
-		    player.gravity();
-		    player.updateY();
-            if (player.y + player.getHeight() >= GROUND_Y) { // Use getHeight()
-                player.y = GROUND_Y - player.getHeight();    // Use getHeight()
-                player.dy = 0;
+        if (isLevelComplete) {
+            if (panel.nextlvl) {
+                currentLevel++;
+                String nextLevel = "resources/levels/level" + currentLevel + ".txt";
+                loadLevel(nextLevel);
             }
-            platformCollisions();
-		    enemyCollisions();
-            if (panel.spacePressed) itemCollisions();
-		    repaint();
+            if (panel.restart) {
+                System.out.println("restart");
+                loadLevel("resources/levels/level" + currentLevel + ".txt");
+            }
+            return;
+        }
+
+        if(score.getLives() == 0) {
+            if(time < 3000) {
+                time += 20;
+            }
+            else {
+                time = 0;
+                loadLevel("resources/levels/level" + currentLevel + ".txt");
+            }
+            return;
+        }
+
+        if (player == null) return;
+
+        if (!coins.isEmpty() && score.getScore() == coins.size()) {
+            player.die();
+
+            isLevelComplete = true;
+            return;
+        }
+
+        if (panel.leftPressed)  player.left();
+        if (panel.rightPressed) player.right();
+        if (panel.downPressed) player.fall();
+
+        for (Enemy en : E) {
+            en.move();
+        }
+
+        int w = 1500;
+        if (player.x > w) {
+            player.x = -35;
+        }
+        if (player.x + 35 < 0) {
+            player.x = w;
+        }
+        player.gravity();
+        player.updateY();
+        if (player.y + player.getHeight() >= GROUND_Y) {
+            player.y = GROUND_Y - player.getHeight();
+            player.dy = 0;
+        }
+        platformCollisions();
+        enemyCollisions();
+        if (panel.spacePressed) itemCollisions();
+        repaint();
 
         if (panel.h_pressed) {
             score.resetHighScore();
@@ -122,7 +129,11 @@ public class Component extends JComponent {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         screen.displayScreen(g2);
-        player.paintPlayer(g2);
+
+        if (player != null) {
+            player.paintPlayer(g2);
+        }
+
         for (Enemy e : E) {
             e.drawEnemy(g2);
         }
@@ -143,19 +154,17 @@ public class Component extends JComponent {
     }
 
     public void playerJump() {
-        player.jump();
+        if (player != null) player.jump();
         repaint();
     }
 
-    // player moves left
     public void playerLeft() {
-        player.left();
+        if (player != null) player.left();
         repaint();
     }
 
-    // player moves right
     public void playerRight() {
-        player.right();
+        if (player != null) player.right();
         repaint();
     }
 
@@ -163,6 +172,7 @@ public class Component extends JComponent {
      * Checks if the player model intersects collectable model and adds points to the score if it is.
      */
     private void itemCollisions() {
+        if (player == null) return;
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         for (Collectable collectable : coins) {
             Rectangle itemRect = new Rectangle(collectable.getX(), collectable.getY(), collectable.getWidth(), collectable.getHeight());
@@ -176,6 +186,7 @@ public class Component extends JComponent {
      * creates collisions for the top and bottom edges of the platforms
      */
     private void platformCollisions() {
+        if (player == null) return;
         for (Platform plat : plats) {
             if (player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat.getY() + plat.getHeight() && player.getY() + player.getHeight() > plat.getY()) {
                 player.dy = 0;
@@ -191,6 +202,7 @@ public class Component extends JComponent {
      * checks if the player model intersects enemy model and kills the player if it is
      */
     private void enemyCollisions() {
+        if (player == null) return;
         Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
         for (Enemy e : E) {
             Rectangle enemyRect = new Rectangle(e.getX(), e.getY(), e.getWidth(), e.getHeight());
@@ -203,69 +215,42 @@ public class Component extends JComponent {
     }
 
     /**
-     * Parses the level
-     * @param in
-     * @param levelName
-     * @throws java.io.IOException
+     * NEW: This method is now responsible for loading a level
+     * and setting all the game's objects.
      */
-    private void parseLevel(java.io.InputStream in, String levelName) throws java.io.IOException {
-        String name = levelName;
+    private void loadLevel(String levelFilename) {
+        try {
+            Level newLevel = LevelIO.loadLevel(levelFilename);
 
-        int W = WIDTH, H = HEIGHT;
+            this.player = newLevel.getPlayer();
+            this.E = newLevel.getEnemies();
+            this.plats = newLevel.getPlatforms();
+            this.coins = newLevel.getCoins();
+            this.WIDTH = newLevel.getWidth();
+            this.HEIGHT = newLevel.getHeight();
 
-        try (var br = new java.io.BufferedReader(new java.io.InputStreamReader(in, java.nio.charset.StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                line = line.strip();
-                if (line.isEmpty() || line.startsWith("#")) continue;
-                String[] t = line.split("\\s+");
-                switch (t[0]) {
+            this.score.resetScore();
 
-                    case "PLAYER" -> {
-                        int x1 = Integer.parseInt(t[1]);
-                        int y1 = Integer.parseInt(t[2]);
-                        player = new Player(x1, y1);
-                    }
+            this.isLevelComplete = false;
+            this.time = 0;
 
-                    case "WINDOW" -> {
-                        W = Integer.parseInt(t[1]);
-                        H = Integer.parseInt(t[2]);
-                    }
-                    case "ENEMY1", "ENEMY2" -> {
-                        int x1 = Integer.parseInt(t[1]);
-                        int y1 = Integer.parseInt(t[2]);
-                        int roamRange1 = Integer.parseInt(t[3]);
-                        double roamSpeed1 = Double.parseDouble(t[4]);
-                        E.add(new Enemy(x1, y1, roamRange1, roamSpeed1));
-                    }
+            setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-                    case "PLATFORM1", "PLATFORM2" -> {
-                        int x1 = Integer.parseInt(t[1]);
-                        int y1 = Integer.parseInt(t[2]);
-                        plats.add(new Platform(x1, y1));
-                    }
-
-                    case "ITEM1", "ITEM2", "ITEM3", "ITEM4" -> {
-                        int x1 = Integer.parseInt(t[1]);
-                        int y1 = Integer.parseInt(t[2]);
-                        coins.add(new Collectable(x1, y1));
-                    }
-
-                    default -> System.err.println("Unknown token: " + t[0]);
-                }
+        } catch (RuntimeException e) {
+            System.err.println("Failed to load level " + levelFilename + ": " + e.getMessage());
+            e.printStackTrace();
+            if (timer != null) {
+                timer.stop();
             }
         }
-        WIDTH = W;
-        HEIGHT = H;
     }
 
-    // timer start and stops
     public void start() {
         timer.start();
     }     // NEW
 
     public void stop() {
         timer.stop();
-    }      // NEW
+    }
 
 }

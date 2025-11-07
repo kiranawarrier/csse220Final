@@ -24,7 +24,6 @@ public class Panel extends JPanel {
     boolean restart = false;
     boolean nextlvl = false;
     
-    // The main game rendering and update component. 
     private final Component canvas = new Component(this);
     /**
      * Constructs the Panel and sets up input listeners for player control.
@@ -36,8 +35,7 @@ public class Panel extends JPanel {
 		this.add(canvas);
 		this.buildKeys();
 		this.add(buildControls(), BorderLayout.SOUTH);
-		// Key listener for controlling player movement
-		
+
 	}
 	
 	private JComponent buildControls() {
@@ -63,6 +61,8 @@ public class Panel extends JPanel {
 		            case KeyEvent.VK_DOWN  -> downPressed = true;
 		            case KeyEvent.VK_SPACE -> spacePressed = true;
                     case KeyEvent.VK_H -> h_pressed = true;
+                    case KeyEvent.VK_R -> restart = true;
+                    case KeyEvent.VK_L -> nextlvl = true;
 		        }
 		    }
 		    @Override
@@ -73,12 +73,13 @@ public class Panel extends JPanel {
 		            case KeyEvent.VK_DOWN  -> downPressed = false;
 		            case KeyEvent.VK_SPACE -> spacePressed = false;
                     case KeyEvent.VK_H -> h_pressed = false;
+                    case KeyEvent.VK_R -> restart = false;
+                    case KeyEvent.VK_L -> nextlvl = false;
 		        }
 		    }
 		});
 		
 	}
-	//Ensures the canvas is ready to receive keyboard input once displayed.
 	@Override
 	public void addNotify() {
 	    super.addNotify();

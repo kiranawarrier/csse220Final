@@ -1,25 +1,28 @@
 package project;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 public class LevelIO {
     /**
-     * Reads a text file, collects each non-blank line into a List,
+     * Reads a text file as a resource, collects each non-blank line into a List,
      * then constructs and returns a Level.
-     * Use our practice with FileIO
      */
-    public static Level loadLevel(String filename) {
+    public static Level loadLevel(String resourcePath) {
         List<String> rows = new ArrayList<>();
-        File file = new File(filename);
-        if (!file.exists()) {
-            throw new RuntimeException("Level file not found: " + filename);
+
+        InputStream is = LevelIO.class.getResourceAsStream(resourcePath);
+
+        if (is == null) {
+            throw new RuntimeException("Level resource not found: " + resourcePath);
         }
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 line = line.trim();
@@ -28,7 +31,7 @@ public class LevelIO {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error reading level file: " + e.getMessage(), e);
+            throw new RuntimeException("Error reading level resource: " + e.getMessage(), e);
         }
         return new Level(rows);
     }
