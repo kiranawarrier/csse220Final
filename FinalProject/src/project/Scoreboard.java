@@ -77,6 +77,14 @@ public class Scoreboard {
     }
 
     /**
+     * Decrements the score by 1 and saves the new state
+     */
+    public void decrementScore() {
+        this.score--;
+        saveState();
+    }
+
+    /**
      * Decrements the lives left by 1 and saves the new state.
      */
     public void dead() {
@@ -105,7 +113,7 @@ public class Scoreboard {
         g2.drawString("Score: " + this.score, 20, 45);
         g2.drawString("Lives: " + this.livesLeft, 20, 75);
         g2.drawString("High Score: " + this.highScore, 20, 105);
-        g2.drawString("Level: " + currentLevel, 1700,40);
+        g2.drawString("Level: " + currentLevel, 1250,40);
     }
 
     /**

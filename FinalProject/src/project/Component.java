@@ -53,6 +53,10 @@ public class Component extends JComponent {
     }
 
     private void tick() {
+        if (currentLevel == 3){
+            System.exit(0);
+        }
+
         if (isLevelComplete) {
             if (panel.nextlvl) {
                 currentLevel++;
@@ -75,7 +79,6 @@ public class Component extends JComponent {
             if (panel.spacePressed) itemCollisions();
 
             if (!coins.isEmpty() && score.getScore() == coins.size()) {
-                player.die();
                 isLevelComplete = true;
             } else {
                 if (panel.leftPressed) player.left();
@@ -193,6 +196,7 @@ public class Component extends JComponent {
             Rectangle enemyRect = new Rectangle(e.getX(), e.getY(), e.getWidth(), e.getHeight());
             if (playerRect.intersects(enemyRect)) {
                 player.die();
+                score.decrementScore();
                 score.dead();
                 System.out.println("You Died");
             }
