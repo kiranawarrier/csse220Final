@@ -22,7 +22,7 @@ public class Scoreboard {
      */
     public Scoreboard() {
         Font gameFont1;
-        loadState(); // Load score and lives from a file
+        loadState();
 
         try {
             InputStream is = Scoreboard.class.getResourceAsStream("PressStart2P-Regular.ttf");
@@ -73,15 +73,15 @@ public class Scoreboard {
         if (this.score > this.highScore) {
             this.highScore = this.score;
         }
-        saveState(); // Save changes to the file
+        saveState();
     }
 
     /**
      * Decrements the lives left by 1 and saves the new state.
      */
     public void dead() {
-        this.livesLeft--; // Use 'this.livesLeft'
-        saveState(); // Save changes to the file
+        this.livesLeft--;
+        saveState();
     }
 
     /**
@@ -97,13 +97,15 @@ public class Scoreboard {
      * Displays the current score and lives left.
      *
      * @param g2
+     * @param currentLevel
      */
-    public void displayScore(Graphics2D g2) {
+    public void displayScore(Graphics2D g2, int currentLevel) {
         g2.setFont(this.gameFont);
         g2.setColor(Color.WHITE);
-        g2.drawString("Score: " + this.score, 20, 30);
-        g2.drawString("Lives: " + this.livesLeft, 20, 60);
-        g2.drawString("High Score: " + this.highScore, 20, 90);
+        g2.drawString("Score: " + this.score, 20, 45);
+        g2.drawString("Lives: " + this.livesLeft, 20, 75);
+        g2.drawString("High Score: " + this.highScore, 20, 105);
+        g2.drawString("Level: " + currentLevel, 1700,40);
     }
 
     /**

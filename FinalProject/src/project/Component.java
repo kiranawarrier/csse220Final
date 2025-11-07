@@ -131,7 +131,7 @@ public class Component extends JComponent {
         for (Collectable collectable : coins) {
             collectable.drawCollectable(g2);
         }
-        score.displayScore(g2);
+        score.displayScore(g2, this.currentLevel);
 
         if (isLevelComplete) { // Add a Level complete screen here
             currentLevel++;
