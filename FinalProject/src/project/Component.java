@@ -143,6 +143,10 @@ public class Component extends JComponent {
 
         if (isLevelComplete) { // Add a Level complete screen here
             currentLevel++;
+            if (currentLevel > maxLevel) { // Add more features here (ends game after successful completion of lvl2
+                System.out.println("Congrats!, you have completed the game!!!");
+                System.exit(0);
+            }
             loadLevel("resources/levels/level" + currentLevel + ".txt");
 
         } else if (score.getLives() == 0) {
