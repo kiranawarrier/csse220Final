@@ -15,7 +15,7 @@ public class Component extends JComponent {
     private int WIDTH = 1500, HEIGHT = 1080;
     public static final int GROUND_Y = 702;
     int time = 0;
-    int currentLevel = 1;
+    int currentLevel = 2; // change when done testing!!!!!!!!!!!!!!!!!!!
     int totalCoinsInLevel = 0;
     boolean isLevelComplete = false;
 
