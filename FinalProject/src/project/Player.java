@@ -57,7 +57,7 @@ public class Player {
         y += dy;
     }
     public void fall() {
-    	dy = 45;
+    	dy = 60;
     }
     
     // jump and print where for debugging location

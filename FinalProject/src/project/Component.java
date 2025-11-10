@@ -206,7 +206,7 @@ public class Component extends JComponent {
     	            int playerTop = player.getY();
     	            int platBottom = plat.getY() + plat.getHeight();
 
-    	            if (playerBottom > platTop && playerTop < platTop && player.dy < 100) {
+    	            if (playerBottom > platTop && playerTop < platTop && player.dy < 50) {
     	                player.y = platTop - player.getHeight();
     	                player.dy = 0;
     	            } else if (player.dy < 0 && playerTop <= platBottom && playerBottom > platBottom) {
