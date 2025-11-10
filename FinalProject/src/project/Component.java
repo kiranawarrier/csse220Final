@@ -184,16 +184,38 @@ public class Component extends JComponent {
      * creates collisions for the top and bottom edges of the platforms
      */
     private void platformCollisions() {
-        if (player == null) return;
-        for (Platform plat : plats) {
-            if (player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat.getY() + plat.getHeight() && player.getY() + player.getHeight() > plat.getY()) {
-                player.dy = 0;
-                player.y = plat.getY() - player.getHeight();
-            } else if (player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
-                player.dy = 0;
-            }
-        }
-    }
+//        if (player == null) return;
+//        for (Platform plat : plats) {
+//            if (player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() + player.getHeight() < plat.getY() + plat.getHeight() && player.getY() + player.getHeight() > plat.getY()) {
+//                player.dy = 0;
+//                player.y = plat.getY() - player.getHeight();
+//            } else if (player.getX() + player.getWidth() > plat.getX() && player.getX() + player.getWidth() < plat.getX() + plat.getWidth() + player.getWidth() && player.getY() < plat.getY() + plat.getHeight() && player.getY() > plat.getY()) {
+//                player.dy = 0;
+//            }
+//        }
+//    }
+    	
+    	 Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
+
+    	    for (Platform plat : plats) {
+    	        Rectangle platRect = new Rectangle(plat.getX(), plat.getY(), plat.getWidth(), plat.getHeight());
+
+    	        if (playerRect.intersects(platRect)) {
+    	            int playerBottom = player.getY() + player.getHeight();
+    	            int platTop = plat.getY();
+    	            int playerTop = player.getY();
+    	            int platBottom = plat.getY() + plat.getHeight();
+
+    	            if (playerBottom > platTop && playerTop < platTop && player.dy < 100) {
+    	                player.y = platTop - player.getHeight();
+    	                player.dy = 0;
+    	            } else if (player.dy < 0 && playerTop <= platBottom && playerBottom > platBottom) {
+    	                player.y = platBottom;
+    	                player.dy = 0;
+    	            }
+    	        }
+    	    }
+    	}
 
     /**
      * checks if the player model intersects enemy model and kills the player if it is
