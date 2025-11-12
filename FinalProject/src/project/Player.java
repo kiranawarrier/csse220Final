@@ -106,9 +106,7 @@ public class Player {
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-
-                Thread.sleep(1900);  // play for 800 ms
-
+                Thread.sleep(1900);  
                 clip.stop();
                 clip.close();
             } catch (Exception ex) {

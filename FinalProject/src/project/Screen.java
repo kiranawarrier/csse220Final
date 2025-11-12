@@ -62,6 +62,18 @@ public class Screen {
 	    	g2.fillRect(0, 700, WIDTH, HEIGHT - 700);
     	}
     }
+    public void displayWinScreen(Graphics2D g2, int timeLeft, String level) {
+    	g2.setColor(Color.BLUE);
+    	g2.fillRect(0, 0, WIDTH, HEIGHT);
+    	
+    	g2.setColor(Color.GREEN);
+    	g2.setFont(topFont);
+    	g2.drawString("You Win " + level, 500,400);
+    	
+    	g2.setColor(Color.white);
+    	g2.setFont(bottomFont);
+    	g2.drawString("Restarting in: " + timeLeft + " seconds", 553, 450);
+    }
     
     public void displayEndScreen(Graphics2D g2, int timeLeft) {
     	g2.setColor(Color.black);

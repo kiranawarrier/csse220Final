@@ -56,23 +56,23 @@ public class Component extends JComponent {
 
     private void tick() {
 
-        if (isLevelComplete) {
-            if (panel.nextlvl) {
-                if (currentLevel <= maxLevel) {
-                    currentLevel++;
-                    String nextLevel = "resources/levels/level" + currentLevel + ".txt";
-                    loadLevel(nextLevel);
-                } else {
-                    System.out.println("Congrats!, you have completed the game!!!");
-                    System.exit(0);
-                }
-
-            } else if (panel.restart) {
+    	if (isLevelComplete) {
+    	    time += 20;
+    	    if (time >= 3000) {
+    	        time = 0;
+    	        currentLevel++;
+    	        if (currentLevel > maxLevel) {
+    	            System.out.println("Congrats!, you have completed the game!!!");
+    	            System.exit(0);
+    	        }
+    	        loadLevel("resources/levels/level" + currentLevel + ".txt");
+    	    }
+    	} else if (panel.restart) {
                 System.out.println("restart");
                 loadLevel("resources/levels/level" + currentLevel + ".txt");
             }
 
-        } else if (score.getLives() == 0) {
+         else if (score.getLives() == 0) {
             if (time < 3000) {
                 time += 20;
             } else {
@@ -141,14 +141,14 @@ public class Component extends JComponent {
         }
         score.displayScore(g2, this.currentLevel);
 
-        if (isLevelComplete) { // Add a Level complete screen here
-            currentLevel++;
-            if (currentLevel > maxLevel) { // Add more features here (ends game after successful completion of lvl2
-                System.out.println("Congrats!, you have completed the game!!!");
-                screen.displayEndScreen(g2, 3000); // need to add an actual you win screen here ______________________
-                System.exit(0);
-            }
-            loadLevel("resources/levels/level" + currentLevel + ".txt");
+        if (isLevelComplete) {
+            if (time > 0 && time < 1000)
+                screen.displayWinScreen(g2, 3, "Level " + currentLevel);
+            else if (time > 0 && time < 2000)
+                screen.displayWinScreen(g2, 2, "Level " + currentLevel);
+            else if (time > 0 && time < 3000)
+                screen.displayWinScreen(g2, 1, "Level " + currentLevel);
+        
 
         } else if (score.getLives() == 0) {
             if ((time > 0 && time < 1000)) {
