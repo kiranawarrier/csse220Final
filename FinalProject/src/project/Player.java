@@ -99,18 +99,23 @@ public class Player {
 
     // starting logic for resetting on death
     public void die() {
-        try{
-            AudioInputStream audioInputStream =
-                AudioSystem.getAudioInputStream(
-                    Player.class.getResource("deathscream.wav"));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-            System.out.println("clip should play here");
-        }
-        catch(Exception ex) {
-        System.out.println("FAILED: " + Player.class.getResource("deathscream.wav"));
-        }
+    	new Thread(() -> {
+            try {
+                AudioInputStream audioInputStream =
+                    AudioSystem.getAudioInputStream(Player.class.getResource("deathscream.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+
+                Thread.sleep(1900);  // play for 800 ms
+
+                clip.stop();
+                clip.close();
+            } catch (Exception ex) {
+                System.out.println("FAILED: " + Player.class.getResource("deathscream.wav"));
+                ex.printStackTrace();
+            }
+        }).start();
         x = 10;
         y = 550;
 

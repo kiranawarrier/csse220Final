@@ -31,11 +31,11 @@ public class Screen {
     
     public Screen() {
     	try {
-    		background = ImageIO.read(Objects.requireNonNull(Player.class.getResource("FinalProjectBackground.png")));
+    		background = ImageIO.read(Objects.requireNonNull(Screen.class.getResource("FinalProjectBackground.png")));
     		bgLoaded = (background != null);
     	}catch(IOException | IllegalArgumentException ex){
     		bgLoaded = false;
-    		System.out.println("FAILED: " + Player.class.getResource("FinalProjectBackground.png"));
+    		System.out.println("FAILED: " + Screen.class.getResource("FinalProjectBackground.png"));
             System.out.print("  background failed to load");
     	}
     }
