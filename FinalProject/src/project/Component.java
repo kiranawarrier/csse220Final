@@ -145,6 +145,7 @@ public class Component extends JComponent {
             currentLevel++;
             if (currentLevel > maxLevel) { // Add more features here (ends game after successful completion of lvl2
                 System.out.println("Congrats!, you have completed the game!!!");
+                screen.displayEndScreen(g2, 3000); // need to add an actual you win screen here ______________________
                 System.exit(0);
             }
             loadLevel("resources/levels/level" + currentLevel + ".txt");
@@ -166,7 +167,7 @@ public class Component extends JComponent {
     }
 
     /**
-     * Checks if the player model intersects collectable model and adds points to the score if it is.
+     * Checks if the player model intersects collectible model and adds points to the score if it is.
      */
     private void itemCollisions() {
         if (player == null) return;
