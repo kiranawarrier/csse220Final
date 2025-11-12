@@ -68,7 +68,7 @@ public class Screen {
     	
     	g2.setColor(Color.GREEN);
     	g2.setFont(topFont);
-    	g2.drawString("You Win " + level, 500,400);
+    	g2.drawString("You Win " + level, 400,400);
     	
     	g2.setColor(Color.white);
     	g2.setFont(bottomFont);

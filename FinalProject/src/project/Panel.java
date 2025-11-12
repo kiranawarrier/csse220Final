@@ -37,7 +37,7 @@ public class Panel extends JPanel {
     private JComponent buildControls() {
         JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 6));
         JButton left = new JButton("restart");
-        JButton right = new JButton("level 2");
+        JButton right = new JButton("Next Level");
 
         left.addActionListener(e -> restart = true);
         right.addActionListener(e -> nextlvl = true);
