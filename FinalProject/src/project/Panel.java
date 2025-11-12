@@ -1,7 +1,6 @@
 package project;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -30,22 +29,22 @@ public class Panel extends JPanel {
         add(canvas, java.awt.BorderLayout.CENTER);
         this.add(canvas);
         this.buildKeys();
-        this.add(buildControls(), BorderLayout.SOUTH);
+        // this.add(buildControls(), BorderLayout.SOUTH);
 
     }
 
-    private JComponent buildControls() {
-        JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 6));
-        JButton left = new JButton("restart");
-        JButton right = new JButton("Next Level");
-
-        left.addActionListener(e -> restart = true);
-        right.addActionListener(e -> nextlvl = true);
-
-        controls.add(left);
-        controls.add(right);
-        return controls;
-    }
+//    private JComponent buildControls() {
+//        JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 6));
+//        JButton left = new JButton("restart");
+//        JButton right = new JButton("Next Level");
+//
+//        left.addActionListener(e -> restart = true);
+//        right.addActionListener(e -> nextlvl = true);
+//
+//        controls.add(left);
+//        controls.add(right);
+//        return controls;
+//    }
 
     private void buildKeys() {
         canvas.addKeyListener(new KeyAdapter() {

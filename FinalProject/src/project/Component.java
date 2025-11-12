@@ -70,6 +70,9 @@ public class Component extends JComponent {
     	} else if (panel.restart) {
                 System.out.println("restart");
                 loadLevel("resources/levels/level" + currentLevel + ".txt");
+                time =0;
+                panel.restart = false;
+                
             }
 
          else if (score.getLives() == 0) {
@@ -109,7 +112,8 @@ public class Component extends JComponent {
                 }
                 platformCollisions();
                 enemyCollisions();
-
+                if (panel.nextlvl) {currentLevel = 2;
+                loadLevel("resources/levels/level" + currentLevel + ".txt");}
                 if (panel.h_pressed) {
                     score.resetHighScore();
                 }
