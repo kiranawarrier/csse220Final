@@ -63,7 +63,7 @@ public class Component extends JComponent {
                     String nextLevel = "resources/levels/level" + currentLevel + ".txt";
                     loadLevel(nextLevel);
                 } else {
-                    System.out.println("Congrats!, you have completed the game!!!" + score.getScore());
+                    System.out.println("Congrats!, you have completed the game!!!");
                     System.exit(0);
                 }
 
