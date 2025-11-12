@@ -91,7 +91,7 @@ public class Scoreboard {
         this.livesLeft--;
         saveState();
     }
-
+   
     /**
      * Gets the lives left.
      *
@@ -114,6 +114,7 @@ public class Scoreboard {
         g2.drawString("Lives: " + this.livesLeft, 20, 75);
         g2.drawString("High Score: " + this.highScore, 20, 105);
         g2.drawString("Level: " + currentLevel, 1250,40);
+        g2.drawString("Coins Left: " + (7 - this.score), 20,140);
     }
 
     /**
