@@ -10,19 +10,17 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-
+/*
+ * this is the class that displays the main background
+ */
 public class Screen {
 	public static final int WIDTH = 1920;
 	public static final int HEIGHT = 1080;
-	
 	public static final Color BG = new Color(18, 29, 57);
 	public static final Color MG = new Color (0, 75, 68);
 	public static final Color FG = new Color(8, 128, 38);
-	
 	private BufferedImage background;
 	private boolean bgLoaded;
-	
-	
 	ImageIcon endScreen = new ImageIcon("endScreen.png");
     JLabel endScreenLabel = new JLabel(endScreen);
     Font topFont = new Font(Font.DIALOG_INPUT, Font.BOLD, 100);
@@ -39,7 +37,10 @@ public class Screen {
             System.out.print("  background failed to load");
     	}
     }
-    
+    /*
+     * This displays the main background
+     * @param g2 Graphic window
+     */
     public void displayScreen(Graphics2D g2){
     	if(bgLoaded) {
     		g2.drawImage(background, 0, 0, WIDTH, HEIGHT, null);
@@ -62,6 +63,11 @@ public class Screen {
 	    	g2.fillRect(0, 700, WIDTH, HEIGHT - 700);
     	}
     }
+    /*
+     * This displays the win screen background
+     * 
+     * @param g2 window, int for timeLeft, String for current Level
+     */
     public void displayWinScreen(Graphics2D g2, int timeLeft, String level) {
     	g2.setColor(Color.BLUE);
     	g2.fillRect(0, 0, WIDTH, HEIGHT);
@@ -74,15 +80,17 @@ public class Screen {
     	g2.setFont(bottomFont);
     	g2.drawString("Restarting in: " + timeLeft + " seconds", 553, 450);
     }
-    
+    /*
+     * This displays the death screen background
+     * 
+     * @param g2 window, int for timeLeft, String for current Level
+     */
     public void displayEndScreen(Graphics2D g2, int timeLeft) {
     	g2.setColor(Color.black);
     	g2.fillRect(0, 0, WIDTH, HEIGHT);
-    	
     	g2.setColor(Color.red);
     	g2.setFont(topFont);
     	g2.drawString("Game Over",500,400);
-    	
     	g2.setColor(Color.white);
     	g2.setFont(bottomFont);
     	g2.drawString("Restarting in: " + timeLeft + " seconds", 553, 450);

@@ -50,7 +50,6 @@ public class Component extends JComponent {
             System.err.println("Failed to load level:");
             timer.stop();
         }
-
         timer.start();
     }
 
@@ -69,10 +68,10 @@ public class Component extends JComponent {
     	    }
     	} else if (panel.restart) {
                 System.out.println("restart");
+                currentLevel = 1;
                 loadLevel("resources/levels/level" + currentLevel + ".txt");
                 time =0;
                 panel.restart = false;
-                
             }
 
          else if (score.getLives() == 0) {
@@ -233,7 +232,7 @@ public class Component extends JComponent {
             if (playerRect.intersects(enemyRect)) {
                 totalCoinsInLevel--;
                 player.die();
-                score.decrementScore();
+                
                 score.dead();
                 System.out.println("You Died");
             }
