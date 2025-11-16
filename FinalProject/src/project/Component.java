@@ -11,24 +11,21 @@ import java.util.ArrayList;
 
 public class Component extends JComponent {
 
-    private static final int maxLevel = 2;
-    private int WIDTH = 1500, HEIGHT = 1080;
     public static final int GROUND_Y = 702;
+    private static final int maxLevel = 2;
     int time = 0;
-    int currentLevel = 1; 
+    int currentLevel = 1;
     int totalCoinsInLevel = 0;
     boolean isLevelComplete = false;
-
     Timer timer;
     Panel panel;
     Player player;
-
     ArrayList<Enemy> E = new ArrayList<>();
     ArrayList<Platform> plats = new ArrayList<>();
     ArrayList<Collectable> coins = new ArrayList<>();
-
     Scoreboard score = new Scoreboard();
     Screen screen = new Screen();
+    private int WIDTH = 1500, HEIGHT = 1080;
 
     /**
      * Constructs the main game Component and starts the update timer.
@@ -55,26 +52,24 @@ public class Component extends JComponent {
 
     private void tick() {
 
-    	if (isLevelComplete) {
-    	    time += 20;
-    	    if (time >= 3000) {
-    	        time = 0;
-    	        currentLevel++;
-    	        if (currentLevel > maxLevel) {
-    	            System.out.println("Congrats!, you have completed the game!!!");
-    	            System.exit(0);
-    	        }
-    	        loadLevel("resources/levels/level" + currentLevel + ".txt");
-    	    }
-    	} else if (panel.restart) {
-                System.out.println("restart");
-                currentLevel = 1;
+        if (isLevelComplete) {
+            time += 20;
+            if (time >= 3000) {
+                time = 0;
+                currentLevel++;
+                if (currentLevel > maxLevel) {
+                    System.out.println("Congrats!, you have completed the game!!!");
+                    System.exit(0);
+                }
                 loadLevel("resources/levels/level" + currentLevel + ".txt");
-                time =0;
-                panel.restart = false;
             }
-
-         else if (score.getLives() == 0) {
+        } else if (panel.restart) {
+            System.out.println("restart");
+            currentLevel = 1;
+            loadLevel("resources/levels/level" + currentLevel + ".txt");
+            time = 0;
+            panel.restart = false;
+        } else if (score.getLives() == 0) {
             if (time < 3000) {
                 time += 20;
             } else {
@@ -111,8 +106,10 @@ public class Component extends JComponent {
                 }
                 platformCollisions();
                 enemyCollisions();
-                if (panel.nextlvl) {currentLevel = 2;
-                loadLevel("resources/levels/level" + currentLevel + ".txt");}
+                if (panel.nextlvl) {
+                    currentLevel = 2;
+                    loadLevel("resources/levels/level" + currentLevel + ".txt");
+                }
                 if (panel.h_pressed) {
                     score.resetHighScore();
                 }
@@ -131,27 +128,24 @@ public class Component extends JComponent {
         screen.displayScreen(g2);
 
         if (player != null) {
-            player.paintPlayer(g2);
+            player.draw(g2);
         }
         for (Enemy e : E) {
-            e.drawEnemy(g2);
+            e.draw(g2);
         }
         for (Platform plat : plats) {
-            plat.drawPlatform(g2);
+            plat.draw(g2);
         }
         for (Collectable collectable : coins) {
-            collectable.drawCollectable(g2);
+            collectable.draw(g2);
         }
         score.displayScore(g2, this.currentLevel);
 
         if (isLevelComplete) {
-            if (time > 0 && time < 1000)
-                screen.displayWinScreen(g2, 3, "Level " + currentLevel);
-            else if (time > 0 && time < 2000)
-                screen.displayWinScreen(g2, 2, "Level " + currentLevel);
-            else if (time > 0 && time < 3000)
-                screen.displayWinScreen(g2, 1, "Level " + currentLevel);
-        
+            if (time > 0 && time < 1000) screen.displayWinScreen(g2, 3, "Level " + currentLevel);
+            else if (time > 0 && time < 2000) screen.displayWinScreen(g2, 2, "Level " + currentLevel);
+            else if (time > 0 && time < 3000) screen.displayWinScreen(g2, 1, "Level " + currentLevel);
+
 
         } else if (score.getLives() == 0) {
             if ((time > 0 && time < 1000)) {
@@ -198,28 +192,28 @@ public class Component extends JComponent {
 //            }
 //        }
 //    }
-    	
-    	 Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
-    	    for (Platform plat : plats) {
-    	        Rectangle platRect = new Rectangle(plat.getX(), plat.getY(), plat.getWidth(), plat.getHeight());
+        Rectangle playerRect = new Rectangle(player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
-    	        if (playerRect.intersects(platRect)) {
-    	            int playerBottom = player.getY() + player.getHeight();
-    	            int platTop = plat.getY();
-    	            int playerTop = player.getY();
-    	            int platBottom = plat.getY() + plat.getHeight();
+        for (Platform plat : plats) {
+            Rectangle platRect = new Rectangle(plat.getX(), plat.getY(), plat.getWidth(), plat.getHeight());
 
-    	            if (playerBottom > platTop && playerTop < platTop && player.dy < 50) {
-    	                player.y = platTop - player.getHeight();
-    	                player.dy = 0;
-    	            } else if (player.dy < 0 && playerTop <= platBottom && playerBottom > platBottom) {
-    	                player.y = platBottom;
-    	                player.dy = 0;
-    	            }
-    	        }
-    	    }
-    	}
+            if (playerRect.intersects(platRect)) {
+                int playerBottom = player.getY() + player.getHeight();
+                int platTop = plat.getY();
+                int playerTop = player.getY();
+                int platBottom = plat.getY() + plat.getHeight();
+
+                if (playerBottom > platTop && playerTop < platTop && player.dy < 50) {
+                    player.y = platTop - player.getHeight();
+                    player.dy = 0;
+                } else if (player.dy < 0 && playerTop <= platBottom && playerBottom > platBottom) {
+                    player.y = platBottom;
+                    player.dy = 0;
+                }
+            }
+        }
+    }
 
     /**
      * checks if the player model intersects enemy model and kills the player if it is
@@ -232,7 +226,7 @@ public class Component extends JComponent {
             if (playerRect.intersects(enemyRect)) {
                 totalCoinsInLevel--;
                 player.die();
-                
+
                 score.dead();
                 System.out.println("You Died");
             }

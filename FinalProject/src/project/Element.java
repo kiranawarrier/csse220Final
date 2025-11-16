@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 
 public abstract class Element {
 
-    private int x, y;
-    private int width, height;
-    private Color color;
-    private BufferedImage sprite;
-    private boolean spriteLoaded;
+    protected int x, y;
+    protected int width, height;
+    protected Color color;
+    protected BufferedImage sprite;
+    protected boolean spriteLoaded;
 
-    public Element(int x, int y, int width, int height, Color color,  BufferedImage sprite,  boolean spriteLoaded) {
+    public Element(int x, int y, int width, int height, Color color, BufferedImage sprite, Boolean spriteLoaded) {
         this.x = x;
         this.y = y;
         this.width = width;

@@ -13,16 +13,30 @@ import java.util.Objects;
  * Represents a collectable item that can be picked up by the player.
  */
 
-public class Collectable {
+public class Collectable extends Element {
 
-    public static final int RENDERED_WIDTH = 40, WIDTH = 40;
-    public static final int RENDERED_HEIGHT = 40, HEIGHT = 40;
-    private final int x;
-    private final int y;
+    private static final int COLLECTABLE_WIDTH = 40;
+    private static final int COLLECTABLE_HEIGHT = 40;
+    private static final Color DEFAULT_COLOR = Color.YELLOW;
+
+    private static final BufferedImage coinSprite;
+    private static final boolean isSpriteLoaded;
+
+    static {
+        BufferedImage tempSprite = null;
+        boolean tempLoaded = false;
+        try {
+            tempSprite = ImageIO.read(Objects.requireNonNull(Collectable.class.getResource("coin.png")));
+            tempLoaded = (tempSprite != null);
+        } catch (IOException | IllegalArgumentException | NullPointerException ex) {
+            System.err.println("CRITICAL_ERROR: Failed to load coin.png resource.");
+            System.err.println("FAILED: " + Collectable.class.getResource("coin.png"));
+        }
+        coinSprite = tempSprite;
+        isSpriteLoaded = tempLoaded;
+    }
+
     public boolean isVisible = true;
-    Color color = Color.YELLOW;
-    private BufferedImage sprite;
-    private boolean spriteLoaded = false;
 
     /**
      * Constructs a collectable at the given coordinates. A sprite is drawn if it can be loaded.
@@ -32,17 +46,7 @@ public class Collectable {
      */
 
     public Collectable(int x, int y) {
-        this.x = x;
-        this.y = y;
-
-        try {
-            sprite = ImageIO.read(Objects.requireNonNull(Player.class.getResource("coin.png")));
-            spriteLoaded = (sprite != null);
-        } catch (IOException | IllegalArgumentException ex) {
-            spriteLoaded = false;
-            System.out.println("FAILED: " + Player.class.getResource("coin.png"));
-            System.out.print("  coin failed to load");
-        }
+        super(x, y, COLLECTABLE_WIDTH, COLLECTABLE_HEIGHT, DEFAULT_COLOR, coinSprite, isSpriteLoaded);
     }
 
     /**
@@ -51,13 +55,14 @@ public class Collectable {
      * @param g2
      */
 
-    public void drawCollectable(Graphics2D g2) {
+    @Override
+    public void draw(Graphics2D g2) {
         if (isVisible) {
-            if (spriteLoaded) {
-                g2.drawImage(sprite, x, y, RENDERED_WIDTH, RENDERED_HEIGHT, null);
+            if (this.spriteLoaded) {
+                g2.drawImage(this.sprite, this.x, this.y, this.width, this.height, null);
             } else {
-                g2.setColor(color);
-                g2.fillRect(x, y, WIDTH, HEIGHT);
+                g2.setColor(this.color);
+                g2.fillRect(this.x, this.y, this.width, this.height);
             }
         }
     }
@@ -81,44 +86,6 @@ public class Collectable {
     }
 
     /**
-     * @return int x location
-     */
-
-    public int getX() {
-        return x;
-    }
-
-    /**
-     * @return int y location
-     */
-
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * @return the width of the sprite
-     */
-
-    public int getWidth() {
-        if (spriteLoaded) {
-            return RENDERED_WIDTH;
-        }
-        return WIDTH;
-    }
-
-    /**
-     * @return the height of the sprite
-     */
-
-    public int getHeight() {
-        if (spriteLoaded) {
-            return RENDERED_HEIGHT;
-        }
-        return HEIGHT;
-    }
-
-    /**
      * @return true if the sprite is visible
      */
 
@@ -128,6 +95,7 @@ public class Collectable {
 
     /**
      * Sets the visibility of the sprite.
+     *
      * @param visible
      */
 

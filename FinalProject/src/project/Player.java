@@ -1,27 +1,45 @@
 package project;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Represents the player character, including movement, gravity, and rendering.
  */
-public class Player {
-    private BufferedImage sprite;
-    private boolean spriteLoaded = false;
-    int x, y;
+public class Player extends Element {
+
+    private static final int WIDTH = 70;
+    private static final int HEIGHT = 110;
+    private static final Color DEFAULT_COLOR = Color.GREEN;
+    private static final BufferedImage playerSprite;
+    private static final boolean isSpriteLoaded;
+
+    /**
+     * Static block to load the player sprite once.
+     */
+    static {
+        BufferedImage tempSprite = null;
+        boolean tempLoaded = false;
+        try {
+            tempSprite = ImageIO.read(Objects.requireNonNull(Player.class.getResource("characterV2.png")));
+            tempLoaded = (tempSprite != null);
+        } catch (IOException | IllegalArgumentException | NullPointerException ex) {
+            System.err.println("CRITICAL_ERROR: Failed to load characterV2.png resource.");
+            System.err.println("FAILED: " + Player.class.getResource("characterV2.png"));
+        }
+        playerSprite = tempSprite;
+        isSpriteLoaded = tempLoaded;
+    }
+
     int dx = 15;
     double dy = 0;
     int grav = 5;
-    Color color = Color.GREEN;
-    private static final int WIDTH = 70;
-    private static final int HEIGHT = 110;
 
     /**
      * Creates a player at the given coordinates and attempts to load the sprite.
@@ -30,16 +48,7 @@ public class Player {
      *
      */
     public Player(int x, int y) {
-        this.x = x;
-        this.y = y;
-        try {
-            sprite = ImageIO.read(Player.class.getResource("characterV2.png"));
-            spriteLoaded = (sprite != null);
-        } catch (IOException | IllegalArgumentException ex) {
-            spriteLoaded = false;
-            System.out.println("FAILED: " + Player.class.getResource("characterV2.png"));
-            System.out.print("  character failed to load");
-        }
+        super(x, y, WIDTH, HEIGHT, DEFAULT_COLOR, playerSprite, isSpriteLoaded);
     }
 
     // move left
@@ -56,28 +65,26 @@ public class Player {
     public void updateY() {
         y += dy;
     }
+
     public void fall() {
-    	dy = 60;
+        dy = 60;
     }
-    
+
     // jump and print where for debugging location
     public void jump() {
         if (dy == 0) {
             dy = -35;
             System.out.println(this.x + "x on right " + this.y);
-            try{
-                AudioInputStream audioInputStream =
-                    AudioSystem.getAudioInputStream(
-                        Player.class.getResource("jumpsound.wav"));
+            try {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Player.class.getResource("jumpsound.wav"));
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-            }
-            catch(Exception ex)
-            {System.out.println(" jump sound failed");
+            } catch (Exception ex) {
+                System.out.println(" jump sound failed");
             }
         }
-        
+
     }
 
     // gravity
@@ -86,27 +93,25 @@ public class Player {
     }
 
     // paint and draw the sprite of player
-    protected void paintPlayer(Graphics2D g2) {
-        int drawX = x;
-        int drawY = y;
-        if (spriteLoaded) {
-            g2.drawImage(sprite, drawX, drawY, 80, 120, null);
+    @Override
+    public void draw(Graphics2D g2) {
+        if (this.spriteLoaded) {
+            g2.drawImage(this.sprite, this.x, this.y, 80, 120, null);
         } else {
-            g2.setColor(color);
-            g2.fillRect(x, y, WIDTH, HEIGHT);
+            g2.setColor(this.color);
+            g2.fillRect(this.x, this.y, WIDTH, HEIGHT);
         }
     }
 
     // starting logic for resetting on death
     public void die() {
-    	new Thread(() -> {
+        new Thread(() -> {
             try {
-                AudioInputStream audioInputStream =
-                    AudioSystem.getAudioInputStream(Player.class.getResource("deathscream.wav"));
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(Player.class.getResource("deathscream.wav"));
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 clip.start();
-                Thread.sleep(1900);  
+                Thread.sleep(1900);
                 clip.stop();
                 clip.close();
             } catch (Exception ex) {
@@ -114,27 +119,13 @@ public class Player {
                 ex.printStackTrace();
             }
         }).start();
+
         x = 10;
         y = 550;
 
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
     public double getDy() {
-    	return dy;
-    }
-
-    public int getWidth() {
-        return WIDTH;
-    }
-
-    public int getHeight() {
-        return HEIGHT;
+        return dy;
     }
 }

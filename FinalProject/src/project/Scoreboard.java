@@ -59,6 +59,7 @@ public class Scoreboard {
 
     /**
      * Gets the current score.
+     *
      * @return the current score
      */
     public int getScore() {
@@ -91,7 +92,7 @@ public class Scoreboard {
         this.livesLeft--;
         saveState();
     }
-   
+
     /**
      * Gets the lives left.
      *
@@ -113,8 +114,8 @@ public class Scoreboard {
         g2.drawString("Score: " + this.score, 20, 45);
         g2.drawString("Lives: " + this.livesLeft, 20, 75);
         g2.drawString("High Score: " + this.highScore, 20, 105);
-        g2.drawString("Level: " + currentLevel, 1250,40);
-        g2.drawString("Coins Left: " + (7 - this.score), 20,140);
+        g2.drawString("Level: " + currentLevel, 1250, 40);
+        g2.drawString("Coins Left: " + (7 - this.score), 20, 140);
     }
 
     /**
